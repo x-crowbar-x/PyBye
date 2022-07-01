@@ -1,6 +1,8 @@
 # PyBye
 Logout program for Linux desktop.
+****
 ![Screenshot](/Screenshot/PyBye-window.png "App. window")
+****
 ## What you need to know
 
 PyBye is written with Python and GTK3. It is basically just one script, that has some basic functionality. 
@@ -32,9 +34,9 @@ Standart keyboard shortcuts are:
 - GTK 3.0
 
 It is basically a script, so it is possible to just run it as it is. Just put it somewhere in the `$PATH`. 
-<p>I've never dealt with Makefile files, so I have no idea how to write an installation script. I will seen what I can do with it.</p>
+<p>I've never dealt with Makefile files, so I have no idea how to write an installation script. I will see what I can do with it.</p>
 
 *****
 
 I took the inspiration from [DistroTube](https://www.youtube.com/c/DistroTube "Derek Taylor's chanel"), who built similar [project](https://gitlab.com/dwt1/byebye "ByeBye on GitLab"), which is called ByeBye (hence the name "PyBye") but in Haskell.
-<p>If you have any suggestions or questions, be sure to send me an to [pennyvoidtea@gmail.com](pennyvoidtea@gmail.com "My E-mail")</p>
+<p>If you have any suggestions or questions, be sure to send me an to pennyvoidtea@gmail.com</p>
