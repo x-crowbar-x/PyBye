@@ -1,6 +1,6 @@
 # PyBye
 Logout program for Linux desktop.
-![Screenshot](/img/mountan.png "Пейзаж с горами")
+![Screenshot](/Screenshot/PyBye-window.png "App. window")
 ## What you need to know
 
 PyBye is written with Python and GTK3. It is basically just one script, that has some basic functionality. 
@@ -17,10 +17,11 @@ Standart keyboard shortcuts are:
 ****
 
 ## Miscellaneous
-* The shutdown, reboot, suspend, log-out commands are standart SystemD commands, but to lock screen I use `slock`. You can easily change it in the config file.
+* The shutdown, reboot, suspend commands are standart SystemD commands, but to lock screen I use `slock`. You can easily change it in the config file.
 * The icons are theme-dependent. In order to change the default ones, you need to specify exact the name (without file extention) of the icon of your currently installed GTK3 theme. 
 * Haven't tested it on Wayland yet. Ran it only on my Qtile with X11.
 * The position of the buttons is hard-coded for now. Maybe I'll work on it later.
+* Escape button closes the main window and dialogs.
 
 ****
 
