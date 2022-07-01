@@ -1,0 +1,155 @@
+from configuration import *
+import gi
+
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk, Gdk
+
+status = ""
+
+
+class ConfirmAction(Gtk.Dialog):
+    def __init__(self, parent):
+        super().__init__(title="Confirm", transient_for=parent, flags=0)
+        self.set_default_size(150, 100)
+
+        self.add_buttons(
+            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, status, Gtk.ResponseType.YES
+        )
+
+        label = Gtk.Label(label="\nAre you sure?")
+
+        box = self.get_content_area()
+        box.add(label)
+        self.show_all()
+
+
+class MainWindow(Gtk.Window):
+    def __init__(self):
+        Gtk.Window.__init__(self, title="PyBye")
+        Gtk.Window.set_default_size(self, width, height)
+        self.set_border_width(border_width)
+
+        self.connect('key-press-event', self.on_key_pressed)
+        self.box = Gtk.Box(spacing=5)
+        self.add(self.box)
+        shutdown = Gtk.Button.new_from_icon_name(icon_name=shutdown_icon, size=6)
+        shutdown.connect("clicked", self.on_shutdown_clicked)
+        self.box.pack_start(shutdown, True, True, 0)
+
+        reboot = Gtk.Button.new_from_icon_name(icon_name=reboot_icon, size=6)
+        reboot.connect("clicked", self.on_reboot_clicked)
+        self.box.pack_start(reboot, True, True, 0)
+
+        suspend = Gtk.Button.new_from_icon_name(icon_name=suspend_icon, size=6)
+        suspend.connect("clicked", self.on_suspend_clicked)
+        self.box.pack_start(suspend, True, True, 0)
+
+        lock_screen = Gtk.Button.new_from_icon_name(icon_name=lockscreen_icon, size=6)
+        lock_screen.connect("clicked", self.on_lock_screen_clicked)
+        self.box.pack_start(lock_screen, True, True, 0)
+
+        log_out = Gtk.Button.new_from_icon_name(icon_name=logout_icon, size=6)
+        log_out.connect("clicked", self.on_log_out_clicked)
+        self.box.pack_start(log_out, True, True, 0)
+
+    # Button functions
+
+    def on_shutdown_clicked(self, widget):
+        if confirmation == "true":
+            global status
+            status = "Shutdown "
+
+            dialog = ConfirmAction(self)
+            response = dialog.run()
+
+            if response == Gtk.ResponseType.YES:
+                shut = os.system(shutdown_command)
+            elif response == Gtk.ResponseType.CANCEL:
+                dialog.destroy()
+        elif confirmation == "false":
+            shut = os.system(shutdown_command)
+
+    def on_reboot_clicked(self, reboot):
+        if confirmation == "true":
+            global status
+            status = "Reboot ﰇ"
+
+            dialog = ConfirmAction(self)
+            response = dialog.run()
+
+            if response == Gtk.ResponseType.YES:
+                restart = os.system(reboot_command)
+            elif response == Gtk.ResponseType.CANCEL:
+                dialog.destroy()
+        elif confirmation == "false":
+            restart = os.system(reboot_command)
+
+    def on_lock_screen_clicked(self, lock_screen):
+        if confirmation == "true":
+            global status
+            status = "Lock screen "
+            dialog = ConfirmAction(self)
+            response = dialog.run()
+
+            if response == Gtk.ResponseType.YES:
+                lock = os.system(lockscreen_command)
+                Gtk.main_quit()
+            elif response == Gtk.ResponseType.CANCEL:
+                dialog.destroy()
+        elif confirmation == "false":
+            lock = os.system(lockscreen_command)
+            Gtk.main_quit()
+
+    def on_suspend_clicked(self, suspend):
+        if confirmation == "true":
+            global status
+            status = "Suspend "
+            dialog = ConfirmAction(self)
+            response = dialog.run()
+
+            if response == Gtk.ResponseType.YES:
+                sus = os.system(suspend_command)
+                Gtk.main_quit()
+            elif response == Gtk.ResponseType.CANCEL:
+                dialog.destroy()
+        elif confirmation == "false":
+            sus = os.system(suspend_command)
+            Gtk.main_quit()
+    
+    def on_log_out_clicked(self, widget):
+        if confirmation == "true":
+            global status
+            status = "Log-out "
+            dialog = ConfirmAction(self)
+            response = dialog.run()
+            
+            if response == Gtk.ResponseType.YES:
+                lout = os.system(logout_command)
+            elif response == Gtk.ResponseType.CANCEL:
+                dialog.destroy()
+        elif confirmation == "false":
+            lout = os.system(logout_command)
+
+    def on_key_pressed(self, widget, event):
+        pressed_key = Gdk.keyval_name(event.keyval)
+        alt = (event.state & Gdk.ModifierType.MOD1_MASK)
+
+        if pressed_key == "Escape":
+            Gtk.main_quit()
+        elif alt and pressed_key == "1":
+            shut = os.system(shutdown_command)
+        elif alt and pressed_key == "2":
+            restart = os.system(reboot_command)
+        elif alt and pressed_key == "3":
+            sus = os.system(suspend_command)
+        elif alt and pressed_key == "4":
+            lock = os.system(lockscreen_command)
+        elif alt and pressed_key == "5":
+            lout = os.system(logout_command)
+
+
+if __name__ == "__main__":
+    win = MainWindow()
+    win.connect("destroy", Gtk.main_quit)
+    win.show_all()
+    Gtk.main()
