@@ -9,7 +9,7 @@ status = ""
 
 class ConfirmAction(Gtk.Dialog):
     def __init__(self, parent):
-        super().__init__(title="Confirm", transient_for=parent, flags=0)
+        super().__init__(title="Confirm", transient_for=parent, modal=True)
         self.set_default_size(150, 100)
 
         self.add_buttons(
