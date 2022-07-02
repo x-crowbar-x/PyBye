@@ -5,7 +5,7 @@ Logout program for Linux desktop.
 ****
 ## What you need to know
 
-PyBye is a simple little log-out program with the help of which, it is more aesthetically pleasing (for me anyway) to end current session or lock screen.
+PyBye is a simple little log-out program with the help of which, it is more aesthetically pleasing (for me anyway) to end current session, lock screen or suspend.
 
 ### The program has:
 
