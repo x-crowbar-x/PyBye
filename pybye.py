@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from configuration import *
 import gi
 
