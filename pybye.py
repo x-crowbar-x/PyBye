@@ -32,23 +32,23 @@ class MainWindow(Gtk.Window):
         self.connect('key-press-event', self.on_key_pressed)
         self.box = Gtk.Box(spacing=5)
         self.add(self.box)
-        shutdown = Gtk.Button.new_from_icon_name(icon_name=shutdown_icon, size=6)
+        shutdown = Gtk.Button.new_from_icon_name(icon_name=shutdown_icon, size=icon_size)
         shutdown.connect("clicked", self.on_shutdown_clicked)
         self.box.pack_start(shutdown, True, True, 0)
 
-        reboot = Gtk.Button.new_from_icon_name(icon_name=reboot_icon, size=6)
+        reboot = Gtk.Button.new_from_icon_name(icon_name=reboot_icon, size=icon_size)
         reboot.connect("clicked", self.on_reboot_clicked)
         self.box.pack_start(reboot, True, True, 0)
 
-        suspend = Gtk.Button.new_from_icon_name(icon_name=suspend_icon, size=6)
+        suspend = Gtk.Button.new_from_icon_name(icon_name=suspend_icon, size=icon_size)
         suspend.connect("clicked", self.on_suspend_clicked)
         self.box.pack_start(suspend, True, True, 0)
 
-        lock_screen = Gtk.Button.new_from_icon_name(icon_name=lockscreen_icon, size=6)
+        lock_screen = Gtk.Button.new_from_icon_name(icon_name=lockscreen_icon, size=icon_size)
         lock_screen.connect("clicked", self.on_lock_screen_clicked)
         self.box.pack_start(lock_screen, True, True, 0)
 
-        log_out = Gtk.Button.new_from_icon_name(icon_name=logout_icon, size=6)
+        log_out = Gtk.Button.new_from_icon_name(icon_name=logout_icon, size=icon_size)
         log_out.connect("clicked", self.on_log_out_clicked)
         self.box.pack_start(log_out, True, True, 0)
 
@@ -57,7 +57,7 @@ class MainWindow(Gtk.Window):
     def on_shutdown_clicked(self, widget):
         if confirmation == "true":
             global status
-            status = "Shutdown "
+            status = "  Shutdown"
 
             dialog = ConfirmAction(self)
             response = dialog.run()
@@ -72,7 +72,7 @@ class MainWindow(Gtk.Window):
     def on_reboot_clicked(self, reboot):
         if confirmation == "true":
             global status
-            status = "Reboot ﰇ"
+            status = "累 Reboot"
 
             dialog = ConfirmAction(self)
             response = dialog.run()
@@ -87,7 +87,7 @@ class MainWindow(Gtk.Window):
     def on_lock_screen_clicked(self, lock_screen):
         if confirmation == "true":
             global status
-            status = "Lock screen "
+            status = "  Lock screen"
             dialog = ConfirmAction(self)
             response = dialog.run()
 
@@ -103,7 +103,7 @@ class MainWindow(Gtk.Window):
     def on_suspend_clicked(self, suspend):
         if confirmation == "true":
             global status
-            status = "Suspend "
+            status = " Suspend"
             dialog = ConfirmAction(self)
             response = dialog.run()
 
@@ -119,7 +119,7 @@ class MainWindow(Gtk.Window):
     def on_log_out_clicked(self, widget):
         if confirmation == "true":
             global status
-            status = "Log-out "
+            status = " Log-out"
             dialog = ConfirmAction(self)
             response = dialog.run()
             
