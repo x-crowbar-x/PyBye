@@ -9,8 +9,8 @@ config = configparser.ConfigParser()
 config.add_section("Commands") 
 config.set("Commands", "shutdown_command", "shutdown now")
 config.set("Commands", "reboot_command", "reboot")
-config.set("Commands", "lockscreen_command", "slock")
-config.set("Commands", "suspend_command", "systemctl suspend")
+config.set("Commands", "locks_creen_command", "slock")
+config.set("Commands", "suspend_command", "systemctl suspend && slock")
 config.set("Commands", "logout_command", "pkill -u $USER")
 
 config.add_section("Icons")
@@ -52,7 +52,7 @@ menu_icon = config["Icons"]["menu_icon"]
 # Variables for commands
 shutdown_command = config["Commands"]["shutdown_command"]
 reboot_command = config["Commands"]["reboot_command"]
-lockscreen_command = config["Commands"]["lockscreen_command"]
+lockscreen_command = config["Commands"]["locks_creen_command"]
 suspend_command = config["Commands"]["suspend_command"]
 logout_command = config["Commands"]["logout_command"]
 
