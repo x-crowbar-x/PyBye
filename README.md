@@ -9,8 +9,8 @@ PyBye is a simple little log-out program with the help of which, it is more aest
 
 ### The program has:
 
-- Configuration file. You can change the commands, size of the window and the icons and icons themselves.
-- Keyboard shortcuts. They are there in case you want to quickly log-out without confirmation. Or simply set `ask_for_confirmation` to `false` (case-insensitive) in the config file.
+- Configuration file. You can change the commands, size of the window and the icons, as well as icons themselves.
+- Keyboard shortcuts. They are there in case you want to quickly log out without confirmation. Or simply set `ask_for_confirmation` to `false` (case-insensitive) in the config file.
 
 The config file is located in `~/.config/PyBye/pybye.conf`. 
 
