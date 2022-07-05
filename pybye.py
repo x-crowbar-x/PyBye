@@ -26,9 +26,10 @@ class ConfirmAction(Gtk.Dialog):
 
 class MainWindow(Gtk.Window):
     def __init__(self):
-        Gtk.Window.__init__(self, title="PyBye")
+        Gtk.Window.__init__(self, title="PyBye", window_position=Gtk.WindowPosition.CENTER)
         Gtk.Window.set_default_size(self, width, height)
         self.set_border_width(border_width)
+        self.set_decorated(False)
 
         self.connect('key-press-event', self.on_key_pressed)
         self.box = Gtk.Box(spacing=5)
