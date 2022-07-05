@@ -22,9 +22,9 @@ Standart keyboard shortcuts are:
 ## Additional Info
 * The shutdown, reboot, suspend commands are standart SystemD commands, but to lock screen I use `slock`. You can easily change it in the config file.
 * The icons are theme-dependent. In order to change the default ones, you need to specify exact the name (without file extention) of the icon of your currently installed GTK3 theme. The maximum size of default icons is 6. After changing the icons and their size, that is bigger than 6, run the script in the command line to see if there are any errors related to the icons.
-* Haven't tested it on Wayland yet. Ran it only on my Qtile with X11.
 * The position of the buttons is hard-coded for now. Maybe I'll work on it later.
 * Escape button closes the main window and dialogs.
+* It is better to use a Nerd font, so that the icons on the dialog window are shown correctly (I have no idea how to make it use the default icons on dialog buttons).
 
 ****
 
@@ -39,7 +39,7 @@ It is basically a script, so it is possible to just run it as it is. Just put it
 
 *****
 
-I took the inspiration from [DistroTube](https://www.youtube.com/c/DistroTube "Derek Taylor's chanel"), who built a similar [project](https://gitlab.com/dwt1/byebye "ByeBye on GitLab"), which is called ByeBye (hence the name "PyBye") but in Haskell.
+I took the inspiration from [DistroTube](https://www.youtube.com/c/DistroTube "Derek Taylor's chanel"), who built a similar [project](https://gitlab.com/dwt1/byebye "ByeBye on GitLab"), which is called ByeBye (hence the name "PyBye") but in Haskell. I've also found another repository on GitHub with the same name as this one. I made it up myself and did not steal it! It's just a coinsidence. :)
 
 <p>If you have any suggestions or questions, send me an E-mail to pennyvoidtea@gmail.com </p>
 
