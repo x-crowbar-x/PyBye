@@ -30,33 +30,57 @@ class MainWindow(Gtk.Window):
         Gtk.Window.set_default_size(self, width, height)
         self.set_border_width(border_width)
         self.set_decorated(False)
-
         self.connect('key-press-event', self.on_key_pressed)
-        self.box = Gtk.Box(spacing=5)
+
+        if orientation == "horizontal":
+            self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+        else:
+            self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
         self.add(self.box)
-    # Shutdown button
-        shutdown = Gtk.Button.new_from_icon_name(icon_name=shutdown_icon, size=icon_size)
-        Gtk.Widget.set_tooltip_text(shutdown, "Shutdown")
+
+        if enable_icons == "True":
+            shutdown = Gtk.Button.new_from_icon_name(icon_name=shutdown_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(shutdown, "Shutdown")
+
+            reboot = Gtk.Button.new_from_icon_name(icon_name=reboot_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(reboot, "Reboot")
+
+            suspend = Gtk.Button.new_from_icon_name(icon_name=suspend_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(suspend, "Suspend")
+
+            lock_screen = Gtk.Button.new_from_icon_name(icon_name=lockscreen_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(lock_screen, "Lock Screen")
+
+            log_out = Gtk.Button.new_from_icon_name(icon_name=logout_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(log_out, "Log out")
+        else:
+            shutdown = Gtk.Button.new_with_label("Shutdown")
+            reboot = Gtk.Button.new_with_label("Reboot")
+            suspend = Gtk.Button.new_with_label("Suspend")
+            lock_screen = Gtk.Button.new_with_label("Lock Screen")
+            log_out = Gtk.Button.new_with_label("Log out")
+
+    # Shutdown button                
         shutdown.connect("clicked", self.on_shutdown_clicked)
         self.box.pack_start(shutdown, True, True, 0)
     # Reboot button
-        reboot = Gtk.Button.new_from_icon_name(icon_name=reboot_icon, size=icon_size)
-        Gtk.Widget.set_tooltip_text(reboot, "Reboot")
+        
+        
         reboot.connect("clicked", self.on_reboot_clicked)
         self.box.pack_start(reboot, True, True, 0)
     # Suspend button
-        suspend = Gtk.Button.new_from_icon_name(icon_name=suspend_icon, size=icon_size)
-        Gtk.Widget.set_tooltip_text(suspend, "Suspend")
+        
+        
         suspend.connect("clicked", self.on_suspend_clicked)
         self.box.pack_start(suspend, True, True, 0)
     # Lock screen button
-        lock_screen = Gtk.Button.new_from_icon_name(icon_name=lockscreen_icon, size=icon_size)
-        Gtk.Widget.set_tooltip_text(lock_screen, "Lock Screen")
+        
+       
         lock_screen.connect("clicked", self.on_lock_screen_clicked)
         self.box.pack_start(lock_screen, True, True, 0)
     # Log out button
-        log_out = Gtk.Button.new_from_icon_name(icon_name=logout_icon, size=icon_size)
-        Gtk.Widget.set_tooltip_text(log_out, "Log out")
+        
+        
         log_out.connect("clicked", self.on_log_out_clicked)
         self.box.pack_start(log_out, True, True, 0)
 
