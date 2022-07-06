@@ -63,4 +63,4 @@ border_width = int(config["Size"]["Border_width"])
 icon_size = int(config["Size"]["icon_size"])
 
 # Variables for options
-confirmation = config["Options"]["ask_for_confirmation"].lower()
+confirmation = config["Options"]["ask_for_confirmation"].capitalize()
