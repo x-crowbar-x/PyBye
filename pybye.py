@@ -33,9 +33,9 @@ class MainWindow(Gtk.Window):
         self.connect('key-press-event', self.on_key_pressed)
 
         if orientation == "horizontal":
-            self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+            self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=space)
         else:
-            self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
+            self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=space)
         self.add(self.box)
 
         if enable_icons == "True":
@@ -59,28 +59,19 @@ class MainWindow(Gtk.Window):
             suspend = Gtk.Button.new_with_label("Suspend")
             lock_screen = Gtk.Button.new_with_label("Lock Screen")
             log_out = Gtk.Button.new_with_label("Log out")
-
-    # Shutdown button                
+        
         shutdown.connect("clicked", self.on_shutdown_clicked)
         self.box.pack_start(shutdown, True, True, 0)
-    # Reboot button
-        
-        
+    
         reboot.connect("clicked", self.on_reboot_clicked)
         self.box.pack_start(reboot, True, True, 0)
-    # Suspend button
-        
-        
+    
         suspend.connect("clicked", self.on_suspend_clicked)
         self.box.pack_start(suspend, True, True, 0)
-    # Lock screen button
-        
-       
+    
         lock_screen.connect("clicked", self.on_lock_screen_clicked)
         self.box.pack_start(lock_screen, True, True, 0)
-    # Log out button
-        
-        
+    
         log_out.connect("clicked", self.on_log_out_clicked)
         self.box.pack_start(log_out, True, True, 0)
 

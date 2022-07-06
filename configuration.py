@@ -25,6 +25,7 @@ config.set("Size", "Height", "150")
 config.set("Size", "Width", "800")
 config.set("Size", "border_width", "10")
 config.set("Size", "icon_size", "6")
+config.set("Size", "Spacing", "5")
 
 config.add_section("Options")
 config.set("Options", "ask_for_confirmation", "True")
@@ -61,6 +62,7 @@ width = int(config["Size"]["Width"])
 height = int(config["Size"]["Height"])
 border_width = int(config["Size"]["Border_width"])
 icon_size = int(config["Size"]["icon_size"])
+space = int(config["Size"]["Spacing"])
 
 # Variables for options
 confirmation = config["Options"]["ask_for_confirmation"].capitalize()
