@@ -19,7 +19,6 @@ config.set("Icons", "reboot_icon", "system-reboot-symbolic")
 config.set("Icons", "lockscreen_icon", "system-lock-screen-symbolic")
 config.set("Icons", "suspend_icon", "sleep-symbolic")
 config.set("Icons", "logout_icon", "system-log-out-symbolic")
-config.set("Icons", "menu_icon", "menu-symbolic")
 
 config.add_section("Size")
 config.set("Size", "Height", "150")
@@ -47,7 +46,6 @@ reboot_icon = config["Icons"]["reboot_icon"]
 lockscreen_icon = config["Icons"]["lockscreen_icon"]
 suspend_icon = config["Icons"]["suspend_icon"]
 logout_icon = config["Icons"]["logout_icon"]
-menu_icon = config["Icons"]["menu_icon"]
 
 # Variables for commands
 shutdown_command = config["Commands"]["shutdown_command"]
