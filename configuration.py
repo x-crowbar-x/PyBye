@@ -19,18 +19,22 @@ config.set("Icons", "reboot_icon", "system-reboot-symbolic")
 config.set("Icons", "lockscreen_icon", "system-lock-screen-symbolic")
 config.set("Icons", "suspend_icon", "sleep-symbolic")
 config.set("Icons", "logout_icon", "system-log-out-symbolic")
+config.set("Icons", "cancel_icon", "cancel")
 
 config.add_section("Size")
 config.set("Size", "Height", "150")
 config.set("Size", "Width", "800")
 config.set("Size", "border_width", "10")
 config.set("Size", "icon_size", "6")
+config.set("Size", "dialog_height", "100")
+config.set("Size", "dialog_width", "100")
 config.set("Size", "Spacing", "5")
 
 config.add_section("Options")
 config.set("Options", "ask_for_confirmation", "True")
 config.set("Options", "enable_icons", "True")
 config.set("Options", "Orientation", "horizontal")
+config.set("Options", "enable_shortcuts", "True")
 
 # Create folder for config file if it does not exist yet
 if not os.path.exists(home + "/.config/PyBye/"):
@@ -49,6 +53,7 @@ reboot_icon = config["Icons"]["reboot_icon"]
 lockscreen_icon = config["Icons"]["lockscreen_icon"]
 suspend_icon = config["Icons"]["suspend_icon"]
 logout_icon = config["Icons"]["logout_icon"]
+cancel_icon = config["Icons"]["cancel_icon"]
 
 # Variables for commands
 shutdown_command = config["Commands"]["shutdown_command"]
@@ -61,10 +66,13 @@ logout_command = config["Commands"]["logout_command"]
 width = int(config["Size"]["Width"])
 height = int(config["Size"]["Height"])
 border_width = int(config["Size"]["Border_width"])
+dialog_height = int(config["Size"]["dialog_height"])
+dialog_width = int(config["Size"]["dialog_width"])
 icon_size = int(config["Size"]["icon_size"])
 space = int(config["Size"]["Spacing"])
 
 # Variables for options
 confirmation = config["Options"]["ask_for_confirmation"].capitalize()
 enable_icons = config["Options"]["enable_icons"].capitalize()
-orientation = config["Options"]["Orientation"]
+orientation = config["Options"]["Orientation"].lower()
+enable_shortcuts = config["Options"]["enable_shortcuts"].capitalize()
