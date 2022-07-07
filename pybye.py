@@ -11,7 +11,7 @@ status = ""
 class ConfirmAction(Gtk.Dialog):
     def __init__(self, parent):
         super().__init__(title="Confirm", transient_for=parent, modal=True)
-        self.set_default_size(150, 100)
+        self.set_default_size(dialog_width, dialog_height)
 
         self.add_buttons(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, status, Gtk.ResponseType.YES
@@ -26,10 +26,12 @@ class ConfirmAction(Gtk.Dialog):
 
 class MainWindow(Gtk.Window):
     def __init__(self):
-        Gtk.Window.__init__(self, title="PyBye", window_position=Gtk.WindowPosition.CENTER)
+        Gtk.Window.__init__(self, title="PyBye")
         Gtk.Window.set_default_size(self, width, height)
         self.set_border_width(border_width)
         self.set_decorated(False)
+        self.set_resizable(False)
+        self.set_position(Gtk.WindowPosition.CENTER)
         self.connect('key-press-event', self.on_key_pressed)
 
         if orientation == "horizontal":
@@ -75,6 +77,11 @@ class MainWindow(Gtk.Window):
         log_out.connect("clicked", self.on_log_out_clicked)
         self.box.pack_start(log_out, True, True, 0)
 
+        cancel = Gtk.Button.new_from_icon_name(icon_name=cancel_icon, size=icon_size)
+        Gtk.Widget.set_tooltip_text(cancel, "Cancel")
+        cancel.connect("clicked", self.on_cancel_pressed)
+        self.box.pack_start(cancel, False, True, 0)
+        
     # Button functions
 
     def on_shutdown_clicked(self, widget):
@@ -110,7 +117,7 @@ class MainWindow(Gtk.Window):
     def on_lock_screen_clicked(self, lock_screen):
         if confirmation == "True":
             global status
-            status = "  Lock screen"
+            status = "  Lock"
             dialog = ConfirmAction(self)
             response = dialog.run()
 
@@ -160,18 +167,22 @@ class MainWindow(Gtk.Window):
 
         if pressed_key == "Escape":
             Gtk.main_quit()
-        elif alt and pressed_key == "1":
-            shut = os.system(shutdown_command)
-        elif alt and pressed_key == "2":
-            restart = os.system(reboot_command)
-        elif alt and pressed_key == "3":
-            sus = os.system(suspend_command)
-        elif alt and pressed_key == "4":
-            lock = os.system(lockscreen_command)
-        elif alt and pressed_key == "5":
-            lout = os.system(logout_command)
+            
+        if enable_shortcuts == "True":
+            if alt and pressed_key == "1":
+                shut = os.system(shutdown_command)
+            elif alt and pressed_key == "2":
+                restart = os.system(reboot_command)
+            elif alt and pressed_key == "3":
+                sus = os.system(suspend_command)
+            elif alt and pressed_key == "4":
+                lock = os.system(lockscreen_command)
+            elif alt and pressed_key == "5":
+                lout = os.system(logout_command)
 
-
+    def on_cancel_pressed(self, cancel):
+        Gtk.main_quit()
+    
 if __name__ == "__main__":
     win = MainWindow()
     win.connect("destroy", Gtk.main_quit)
