@@ -5,8 +5,6 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
-status = ""
-
 
 class ConfirmAction(Gtk.Dialog):
     def __init__(self, parent):
@@ -31,7 +29,12 @@ class MainWindow(Gtk.Window):
         self.set_border_width(border_width)
         self.set_decorated(False)
         self.set_resizable(False)
-        self.set_position(Gtk.WindowPosition.CENTER)
+
+        if window_position == "center":
+            self.set_position(Gtk.WindowPosition.CENTER)
+        elif window_position == "mouse":
+            self.set_position(Gtk.WindowPosition.MOUSE)
+
         self.connect('key-press-event', self.on_key_pressed)
 
         if orientation == "horizontal":
@@ -61,29 +64,30 @@ class MainWindow(Gtk.Window):
             suspend = Gtk.Button.new_with_label("Suspend")
             lock_screen = Gtk.Button.new_with_label("Lock Screen")
             log_out = Gtk.Button.new_with_label("Log out")
-        
+
+    # Shutdown button    
         shutdown.connect("clicked", self.on_shutdown_clicked)
         self.box.pack_start(shutdown, True, True, 0)
-    
+    # Reboot button
         reboot.connect("clicked", self.on_reboot_clicked)
         self.box.pack_start(reboot, True, True, 0)
-    
+    # Suspend button
         suspend.connect("clicked", self.on_suspend_clicked)
         self.box.pack_start(suspend, True, True, 0)
-    
+    # Lock screen button
         lock_screen.connect("clicked", self.on_lock_screen_clicked)
         self.box.pack_start(lock_screen, True, True, 0)
-    
+    # Log-out button
         log_out.connect("clicked", self.on_log_out_clicked)
         self.box.pack_start(log_out, True, True, 0)
-
-        cancel = Gtk.Button.new_from_icon_name(icon_name=cancel_icon, size=icon_size)
-        Gtk.Widget.set_tooltip_text(cancel, "Cancel")
-        cancel.connect("clicked", self.on_cancel_pressed)
-        self.box.pack_start(cancel, False, True, 0)
+    # Cancel button
+        if enable_cancel == "true":
+            cancel = Gtk.Button.new_from_icon_name(icon_name=cancel_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(cancel, "Cancel")
+            cancel.connect("clicked", self.on_cancel_pressed)
+            self.box.pack_start(cancel, False, True, 0)
         
     # Button functions
-
     def on_shutdown_clicked(self, widget):
         if confirmation == "True":
             global status
