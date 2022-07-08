@@ -33,6 +33,7 @@ The program has a configuration file to change it to your liking.
 * The position of the buttons is hard-coded. You can change it in the main file by moving the blocks of code for the buttons up or down.
 * Escape button closes the main window. If the dialog is open, then, obviously, it will be closed, but not the main window.
 * It is better to use a Nerd font, so that the icons on the dialog window are shown correctly (I have no idea how to make it use the default icons on dialog buttons).
+* To use new options in the config (if you had older version and then downloaded a new one), delete or change the name of the config and run the script again to regenerate it (It is like that only for now).
 
 ****
 
