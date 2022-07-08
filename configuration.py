@@ -35,6 +35,8 @@ config.set("Options", "ask_for_confirmation", "True")
 config.set("Options", "enable_icons", "True")
 config.set("Options", "Orientation", "horizontal")
 config.set("Options", "enable_shortcuts", "True")
+config.set("Options", "window_position", "center")
+config.set("Options", "enable_cancel", "True")
 
 # Create folder for config file if it does not exist yet
 if not os.path.exists(home + "/.config/PyBye/"):
@@ -76,3 +78,5 @@ confirmation = config["Options"]["ask_for_confirmation"].capitalize()
 enable_icons = config["Options"]["enable_icons"].capitalize()
 orientation = config["Options"]["Orientation"].lower()
 enable_shortcuts = config["Options"]["enable_shortcuts"].capitalize()
+window_position = config["Options"]["window_position"].lower()
+enable_cancel = config["Options"]["enable_cancel"].lower()
