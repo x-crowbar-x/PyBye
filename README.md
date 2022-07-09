@@ -10,7 +10,7 @@ PyBye is a simple little log-out program with the help of which, it is more aest
 ### Features
 
 The program has a configuration file to change it to your liking. 
-<b>IMPORTANT!</b> To use new options in the config (if you had an older version and then downloaded a new one), delete or change the name of the config and run the script again to regenerate it (It is like that only for now, sorry for the inconvenience).
+<b>IMPORTANT!</b> To use new options in the config (if you had an older version and then downloaded a new one), delete or change the name of the config and run the script again to regenerate it.
 
 <b><p>You can:</p></b>
 
