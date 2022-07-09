@@ -44,42 +44,42 @@ class MainWindow(Gtk.Window):
         self.add(self.box)
 
         if enable_icons == "True":
-            shutdown = Gtk.Button.new_from_icon_name(icon_name=shutdown_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(shutdown, "Shutdown")
+            button1 = Gtk.Button.new_from_icon_name(icon_name=button_one_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(button1, button_one)
 
-            reboot = Gtk.Button.new_from_icon_name(icon_name=reboot_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(reboot, "Reboot")
+            button2 = Gtk.Button.new_from_icon_name(icon_name=button_two_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(button2, button_two)
 
-            suspend = Gtk.Button.new_from_icon_name(icon_name=suspend_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(suspend, "Suspend")
+            button3 = Gtk.Button.new_from_icon_name(icon_name=button_three_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(button3, button_three)
 
-            lock_screen = Gtk.Button.new_from_icon_name(icon_name=lockscreen_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(lock_screen, "Lock Screen")
+            button4 = Gtk.Button.new_from_icon_name(icon_name=button_four_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(button4, button_four)
 
-            log_out = Gtk.Button.new_from_icon_name(icon_name=logout_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(log_out, "Log out")
+            button5 = Gtk.Button.new_from_icon_name(icon_name=button_five_icon, size=icon_size)
+            Gtk.Widget.set_tooltip_text(button5, button_five)
         else:
-            shutdown = Gtk.Button.new_with_label("Shutdown")
-            reboot = Gtk.Button.new_with_label("Reboot")
-            suspend = Gtk.Button.new_with_label("Suspend")
-            lock_screen = Gtk.Button.new_with_label("Lock Screen")
-            log_out = Gtk.Button.new_with_label("Log out")
+            button1 = Gtk.Button.new_with_label(button_one)
+            button2 = Gtk.Button.new_with_label(button_two)
+            button3 = Gtk.Button.new_with_label(button_three)
+            button4 = Gtk.Button.new_with_label(button_four)
+            button5 = Gtk.Button.new_with_label(button_five)
 
-    # Shutdown button    
-        shutdown.connect("clicked", self.on_shutdown_clicked)
-        self.box.pack_start(shutdown, True, True, 0)
-    # Reboot button
-        reboot.connect("clicked", self.on_reboot_clicked)
-        self.box.pack_start(reboot, True, True, 0)
-    # Suspend button
-        suspend.connect("clicked", self.on_suspend_clicked)
-        self.box.pack_start(suspend, True, True, 0)
-    # Lock screen button
-        lock_screen.connect("clicked", self.on_lock_screen_clicked)
-        self.box.pack_start(lock_screen, True, True, 0)
-    # Log-out button
-        log_out.connect("clicked", self.on_log_out_clicked)
-        self.box.pack_start(log_out, True, True, 0)
+    # First button    
+        button1.connect("clicked", self.on_button1_clicked)
+        self.box.pack_start(button1, True, True, 0)
+    # Second button
+        button2.connect("clicked", self.on_button2_clicked)
+        self.box.pack_start(button2, True, True, 0)
+    # Third button
+        button3.connect("clicked", self.on_button3_clicked)
+        self.box.pack_start(button3, True, True, 0)
+    # Fourth button
+        button4.connect("clicked", self.on_button4_clicked)
+        self.box.pack_start(button4, True, True, 0)
+    # Fifth button
+        button5.connect("clicked", self.on_button5_clicked)
+        self.box.pack_start(button5, True, True, 0)
     # Cancel button
         if enable_cancel == "true":
             cancel = Gtk.Button.new_from_icon_name(icon_name=cancel_icon, size=icon_size)
@@ -88,81 +88,81 @@ class MainWindow(Gtk.Window):
             self.box.pack_start(cancel, False, True, 0)
         
     # Button functions
-    def on_shutdown_clicked(self, widget):
+    def on_button1_clicked(self, widget):
         if confirmation == "True":
             global status
-            status = "  Shutdown"
+            status = button_one
 
             dialog = ConfirmAction(self)
             response = dialog.run()
 
             if response == Gtk.ResponseType.YES:
-                shut = os.system(shutdown_command)
+                click = os.system(button_one_command)
             elif response == Gtk.ResponseType.CANCEL:
                 dialog.destroy()
         elif confirmation == "False":
-            shut = os.system(shutdown_command)
+            click = os.system(button_one_command)
 
-    def on_reboot_clicked(self, reboot):
+    def on_button2_clicked(self, widget):
         if confirmation == "True":
             global status
-            status = "累 Reboot"
+            status = button_two
 
             dialog = ConfirmAction(self)
             response = dialog.run()
 
             if response == Gtk.ResponseType.YES:
-                restart = os.system(reboot_command)
+                click = os.system(button_two_command)
             elif response == Gtk.ResponseType.CANCEL:
                 dialog.destroy()
         elif confirmation == "False":
-            restart = os.system(reboot_command)
+            click = os.system(button_two_command)
 
-    def on_lock_screen_clicked(self, lock_screen):
+    def on_button3_clicked(self, widget):
         if confirmation == "True":
             global status
-            status = "  Lock"
+            status = button_three
             dialog = ConfirmAction(self)
             response = dialog.run()
 
             if response == Gtk.ResponseType.YES:
-                lock = os.system(lockscreen_command)
+                click = os.system(button_three_command)
                 Gtk.main_quit()
             elif response == Gtk.ResponseType.CANCEL:
                 dialog.destroy()
         elif confirmation == "False":
-            lock = os.system(lockscreen_command)
+            click = os.system(button_three_command)
             Gtk.main_quit()
 
-    def on_suspend_clicked(self, suspend):
+    def on_button4_clicked(self, widget):
         if confirmation == "True":
             global status
-            status = " Suspend"
+            status = button_four
             dialog = ConfirmAction(self)
             response = dialog.run()
 
             if response == Gtk.ResponseType.YES:
-                sus = os.system(suspend_command)
+                click = os.system(button_four_command)
                 Gtk.main_quit()
             elif response == Gtk.ResponseType.CANCEL:
                 dialog.destroy()
         elif confirmation == "False":
-            sus = os.system(suspend_command)
+            click = os.system(button_four_command)
             Gtk.main_quit()
     
-    def on_log_out_clicked(self, widget):
+    def on_button5_clicked(self, widget):
         if confirmation == "True":
             global status
-            status = " Log-out"
+            status = button_five
             dialog = ConfirmAction(self)
             response = dialog.run()
             
             if response == Gtk.ResponseType.YES:
-                lout = os.system(logout_command)
+                click = os.system(button_five_command)
             elif response == Gtk.ResponseType.CANCEL:
                 dialog.destroy()
         elif confirmation == "False":
-            lout = os.system(logout_command)
+            click = os.system(button_five_command)
             
     # Key press function
     def on_key_pressed(self, widget, event):
@@ -174,15 +174,15 @@ class MainWindow(Gtk.Window):
             
         if enable_shortcuts == "True":
             if alt and pressed_key == "1":
-                shut = os.system(shutdown_command)
+                but1 = os.system(button_one_command)
             elif alt and pressed_key == "2":
-                restart = os.system(reboot_command)
+                but2 = os.system(button_two_command)
             elif alt and pressed_key == "3":
-                sus = os.system(suspend_command)
+                but3 = os.system(button_three_command)
             elif alt and pressed_key == "4":
-                lock = os.system(lockscreen_command)
+                but4 = os.system(button_four_command)
             elif alt and pressed_key == "5":
-                lout = os.system(logout_command)
+                but5 = os.system(button_five_command)
 
     def on_cancel_pressed(self, cancel):
         Gtk.main_quit()
