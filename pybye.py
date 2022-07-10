@@ -5,12 +5,19 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
+# Set transparency
+CSS = b"""
+#window {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+"""
+
 
 class ConfirmAction(Gtk.Dialog):
     def __init__(self, parent):
         super().__init__(title="Confirm", transient_for=parent, modal=True)
         self.set_default_size(dialog_width, dialog_height)
-
+        
         self.add_buttons(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, status, Gtk.ResponseType.YES
         )
@@ -24,69 +31,78 @@ class ConfirmAction(Gtk.Dialog):
 
 class MainWindow(Gtk.Window):
     def __init__(self):
-        Gtk.Window.__init__(self, title="PyBye")
+        Gtk.Window.__init__(self, title="PyBye", name="window")
         Gtk.Window.set_default_size(self, width, height)
         self.set_border_width(border_width)
         self.set_decorated(False)
         self.set_resizable(False)
-
-        if window_position == "center":
-            self.set_position(Gtk.WindowPosition.CENTER)
-        elif window_position == "mouse":
-            self.set_position(Gtk.WindowPosition.MOUSE)
-
+        self.set_position(Gtk.WindowPosition.CENTER)
         self.connect('key-press-event', self.on_key_pressed)
 
-        if orientation == "horizontal":
-            self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=space)
-        else:
-            self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=space)
-        self.add(self.box)
+        # Get transparency using CSS
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(CSS)
 
-        if enable_icons == "True":
-            button1 = Gtk.Button.new_from_icon_name(icon_name=button_one_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(button1, button_one)
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            style_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
 
-            button2 = Gtk.Button.new_from_icon_name(icon_name=button_two_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(button2, button_two)
-
-            button3 = Gtk.Button.new_from_icon_name(icon_name=button_three_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(button3, button_three)
-
-            button4 = Gtk.Button.new_from_icon_name(icon_name=button_four_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(button4, button_four)
-
-            button5 = Gtk.Button.new_from_icon_name(icon_name=button_five_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(button5, button_five)
-        else:
-            button1 = Gtk.Button.new_with_label(button_one)
-            button2 = Gtk.Button.new_with_label(button_two)
-            button3 = Gtk.Button.new_with_label(button_three)
-            button4 = Gtk.Button.new_with_label(button_four)
-            button5 = Gtk.Button.new_with_label(button_five)
-
-    # First button    
+    # First button
+        label1 = Gtk.Label(label=button_one)
+        label1.set_selectable(False)
+        button1 = Gtk.Button.new_from_icon_name(icon_name=button_one_icon, size=icon_size)
         button1.connect("clicked", self.on_button1_clicked)
-        self.box.pack_start(button1, True, True, 0)
     # Second button
+        label2 = Gtk.Label(label=button_two)
+        label2.set_selectable(False)
+        button2 = Gtk.Button.new_from_icon_name(icon_name=button_two_icon, size=icon_size)
         button2.connect("clicked", self.on_button2_clicked)
-        self.box.pack_start(button2, True, True, 0)
     # Third button
+        label3 = Gtk.Label(label=button_three)
+        label3.set_selectable(False)
+        button3_text = Gtk.Button.new_with_label(button_three)
+        button3 = Gtk.Button.new_from_icon_name(icon_name=button_three_icon, size=icon_size)
         button3.connect("clicked", self.on_button3_clicked)
-        self.box.pack_start(button3, True, True, 0)
     # Fourth button
+        label4 = Gtk.Label(label=button_four)
+        label4.set_selectable(False)
+        button4_text = Gtk.Button.new_with_label(button_four)
+        button4 = Gtk.Button.new_from_icon_name(icon_name=button_four_icon, size=icon_size)
         button4.connect("clicked", self.on_button4_clicked)
-        self.box.pack_start(button4, True, True, 0)
     # Fifth button
+        label5 = Gtk.Label(label=button_five)
+        label5.set_selectable(False)
+        button5_text = Gtk.Button.new_with_label(button_five)
+        button5 = Gtk.Button.new_from_icon_name(icon_name=button_five_icon, size=icon_size)
         button5.connect("clicked", self.on_button5_clicked)
-        self.box.pack_start(button5, True, True, 0)
-    # Cancel button
+
+    # Add buttons and labels to the grid
+        grid = Gtk.Grid()
         if enable_cancel == "true":
+            label_cancel = Gtk.Label(label="Cancel")
             cancel = Gtk.Button.new_from_icon_name(icon_name=cancel_icon, size=icon_size)
-            Gtk.Widget.set_tooltip_text(cancel, "Cancel")
             cancel.connect("clicked", self.on_cancel_pressed)
-            self.box.pack_start(cancel, False, True, 0)
+            grid.add(cancel)
+            grid.attach_next_to(label_cancel, cancel, Gtk.PositionType.BOTTOM, 1, 1)
         
+        grid.add(button1)
+        grid.attach_next_to(label1, button1, Gtk.PositionType.BOTTOM, 1, 1)
+        grid.add(button2)
+        grid.attach_next_to(label2, button2, Gtk.PositionType.BOTTOM, 1, 1)
+        grid.add(button3)
+        grid.attach_next_to(label3, button3, Gtk.PositionType.BOTTOM, 1, 1)
+        grid.add(button4)
+        grid.attach_next_to(label4, button4, Gtk.PositionType.BOTTOM, 1, 1)
+        grid.add(button5)
+        grid.attach_next_to(label5, button5, Gtk.PositionType.BOTTOM, 1, 1)
+        grid.set_row_spacing(15)
+        grid.set_row_homogeneous(False)
+        grid.set_column_homogeneous(True)
+        grid.set_column_spacing(80)
+        self.add(grid)
+
     # Button functions
     def on_button1_clicked(self, widget):
         if confirmation == "True":
@@ -189,6 +205,10 @@ class MainWindow(Gtk.Window):
     
 if __name__ == "__main__":
     win = MainWindow()
+    screen = win.get_screen()
+    visual = screen.get_rgba_visual()
+    win.set_visual(visual)
     win.connect("destroy", Gtk.main_quit)
     win.show_all()
+    win.move(-1,-5)
     Gtk.main()
