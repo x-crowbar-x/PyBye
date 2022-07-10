@@ -22,28 +22,24 @@ config.set("Icons", "button_five_icon", "system-log-out-symbolic")
 config.set("Icons", "cancel_icon", "cancel")
 
 config.add_section("Size")
-config.set("Size", "Height", "150")
-config.set("Size", "Width", "800")
-config.set("Size", "border_width", "10")
+config.set("Size", "Width", "1920")
+config.set("Size", "Height", "1080")
+config.set("Size", "border_width", "500")
 config.set("Size", "icon_size", "6")
 config.set("Size", "dialog_height", "100")
-config.set("Size", "dialog_width", "100")
-config.set("Size", "Spacing", "5")
+config.set("Size", "dialog_width", "200")
 
 config.add_section("Options")
 config.set("Options", "ask_for_confirmation", "True")
-config.set("Options", "enable_icons", "True")
-config.set("Options", "Orientation", "horizontal")
 config.set("Options", "enable_shortcuts", "True")
-config.set("Options", "window_position", "center")
-config.set("Options", "enable_cancel", "True")
+config.set("Options", "enable_cancel", "False")
 
 config.add_section("Text")
 config.set("Text", "button_one", "Shutdown")
 config.set("Text", "button_two", "Reboot")
 config.set("Text", "button_three", "Suspend")
-config.set("Text", "button_four", "Lock Screen")
-config.set("Text", "button_five", "Log Out")
+config.set("Text", "button_four", "Lock screen")
+config.set("Text", "button_five", "Log-Out")
 
 # Create folder for config file if it does not exist yet
 if not os.path.exists(home + "/.config/PyBye/"):
@@ -78,14 +74,10 @@ border_width = int(config["Size"]["Border_width"])
 dialog_height = int(config["Size"]["dialog_height"])
 dialog_width = int(config["Size"]["dialog_width"])
 icon_size = int(config["Size"]["icon_size"])
-space = int(config["Size"]["Spacing"])
 
 # Variables for options
 confirmation = config["Options"]["ask_for_confirmation"].capitalize()
-enable_icons = config["Options"]["enable_icons"].capitalize()
-orientation = config["Options"]["Orientation"].lower()
 enable_shortcuts = config["Options"]["enable_shortcuts"].capitalize()
-window_position = config["Options"]["window_position"].lower()
 enable_cancel = config["Options"]["enable_cancel"].lower()
 
 # Variables for tooltip  
