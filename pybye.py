@@ -16,7 +16,7 @@ CSS = b"""
 class ConfirmAction(Gtk.Dialog):
     def __init__(self, parent):
         super().__init__(title="Confirm", transient_for=parent, modal=True)
-        self.set_default_size(dialog_width, dialog_height)
+        self.set_size_request(200, 100)
         self.add_buttons(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, status, Gtk.ResponseType.YES
         )

@@ -17,7 +17,7 @@ The program has a configuration file to change it to your liking.
 - Set any text for the buttons, which makes it possible to change the position of any button. For example, to put suspend on the first place you need to switch the commands of the first and the third buttons, icons and their texts.
 - Change commands and icons.
 - Specify the border width.
-- Change the size of the dialog and the main window. <b>BUT, after the latest update it is now 1920x1080, no matter what values below that you put inside the config, unless you also change the value of `border_width`. The same same applies to greater resolutions.</b>
+- Change the size of the main window. <b>BUT, after the latest update it is now 1920x1080, no matter what values below that you put inside the config, unless you also change the value of `border_width`. The same same applies to greater resolutions.</b>
 - Disable confirmation.
 - Enable shortcuts (don't even know if anyone would need them at all, but they are `Alt`+(from `1` to `5`)). 
 - Enable the cancel button. (Also don't know if anyone would need it, because I set Escape button to close the window.)

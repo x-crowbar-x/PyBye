@@ -26,8 +26,6 @@ config.set("Size", "Width", "1920")
 config.set("Size", "Height", "1080")
 config.set("Size", "border_width", "500")
 config.set("Size", "icon_size", "6")
-config.set("Size", "dialog_height", "100")
-config.set("Size", "dialog_width", "200")
 
 config.add_section("Options")
 config.set("Options", "ask_for_confirmation", "True")
@@ -40,7 +38,7 @@ config.add_section("Text")
 config.set("Text", "button_one", "Shutdown")
 config.set("Text", "button_two", "Reboot")
 config.set("Text", "button_three", "Suspend")
-config.set("Text", "button_four", "Lock screen")
+config.set("Text", "button_four", "Lock")
 config.set("Text", "button_five", "Log-Out")
 
 # Create folder for config file if it does not exist yet
@@ -73,8 +71,6 @@ button_five_command = config["Commands"]["button_five_command"]
 width = int(config["Size"]["Width"])
 height = int(config["Size"]["Height"])
 border_width = int(config["Size"]["Border_width"])
-dialog_height = int(config["Size"]["dialog_height"])
-dialog_width = int(config["Size"]["dialog_width"])
 icon_size = int(config["Size"]["icon_size"])
 
 # Variables for options
