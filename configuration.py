@@ -33,6 +33,8 @@ config.add_section("Options")
 config.set("Options", "ask_for_confirmation", "True")
 config.set("Options", "enable_shortcuts", "True")
 config.set("Options", "enable_cancel", "False")
+config.set("Options", "space_between_buttons_and_text", "15")
+config.set("Options", "space_between_buttons", "80")
 
 config.add_section("Text")
 config.set("Text", "button_one", "Shutdown")
@@ -79,8 +81,10 @@ icon_size = int(config["Size"]["icon_size"])
 confirmation = config["Options"]["ask_for_confirmation"].capitalize()
 enable_shortcuts = config["Options"]["enable_shortcuts"].capitalize()
 enable_cancel = config["Options"]["enable_cancel"].lower()
+row_spacing = int(config["Options"]["space_between_buttons_and_text"])
+column_spacing = int(config["Options"]["space_between_buttons"])
 
-# Variables for tooltip  
+# Variables for tooltip
 button_one = config["Text"]["button_one"]
 button_two = config["Text"]["button_two"]
 button_three = config["Text"]["button_three"]
