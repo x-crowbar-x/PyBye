@@ -26,19 +26,19 @@ config.set("Size", "Width", "1920")
 config.set("Size", "Height", "1080")
 config.set("Size", "border_width", "500")
 config.set("Size", "icon_size", "6")
-config.set("Size", "dialog_height", "100")
-config.set("Size", "dialog_width", "200")
 
 config.add_section("Options")
 config.set("Options", "ask_for_confirmation", "True")
 config.set("Options", "enable_shortcuts", "True")
 config.set("Options", "enable_cancel", "False")
+config.set("Options", "space_between_buttons_and_text", "15")
+config.set("Options", "space_between_buttons", "80")
 
 config.add_section("Text")
 config.set("Text", "button_one", "Shutdown")
 config.set("Text", "button_two", "Reboot")
 config.set("Text", "button_three", "Suspend")
-config.set("Text", "button_four", "Lock screen")
+config.set("Text", "button_four", "Lock")
 config.set("Text", "button_five", "Log-Out")
 
 # Create folder for config file if it does not exist yet
@@ -71,16 +71,16 @@ button_five_command = config["Commands"]["button_five_command"]
 width = int(config["Size"]["Width"])
 height = int(config["Size"]["Height"])
 border_width = int(config["Size"]["Border_width"])
-dialog_height = int(config["Size"]["dialog_height"])
-dialog_width = int(config["Size"]["dialog_width"])
 icon_size = int(config["Size"]["icon_size"])
 
 # Variables for options
 confirmation = config["Options"]["ask_for_confirmation"].capitalize()
 enable_shortcuts = config["Options"]["enable_shortcuts"].capitalize()
 enable_cancel = config["Options"]["enable_cancel"].lower()
+row_spacing = int(config["Options"]["space_between_buttons_and_text"])
+column_spacing = int(config["Options"]["space_between_buttons"])
 
-# Variables for tooltip  
+# Variables for tooltip
 button_one = config["Text"]["button_one"]
 button_two = config["Text"]["button_two"]
 button_three = config["Text"]["button_three"]

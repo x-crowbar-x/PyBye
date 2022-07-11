@@ -7,7 +7,7 @@ from gi.repository import Gtk, Gdk
 
 # Set transparency
 CSS = b"""
-#window {
+#mainWindow {
     background-color: rgba(0, 0, 0, 0.5);
 }
 """
@@ -16,8 +16,7 @@ CSS = b"""
 class ConfirmAction(Gtk.Dialog):
     def __init__(self, parent):
         super().__init__(title="Confirm", transient_for=parent, modal=True)
-        self.set_default_size(dialog_width, dialog_height)
-        
+        self.set_size_request(200, 100)
         self.add_buttons(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, status, Gtk.ResponseType.YES
         )
@@ -31,7 +30,7 @@ class ConfirmAction(Gtk.Dialog):
 
 class MainWindow(Gtk.Window):
     def __init__(self):
-        Gtk.Window.__init__(self, title="PyBye", name="window")
+        Gtk.Window.__init__(self, title="PyBye", name="mainWindow")
         Gtk.Window.set_default_size(self, width, height)
         self.set_border_width(border_width)
         self.set_decorated(False)
@@ -62,19 +61,16 @@ class MainWindow(Gtk.Window):
     # Third button
         label3 = Gtk.Label(label=button_three)
         label3.set_selectable(False)
-        button3_text = Gtk.Button.new_with_label(button_three)
         button3 = Gtk.Button.new_from_icon_name(icon_name=button_three_icon, size=icon_size)
         button3.connect("clicked", self.on_button3_clicked)
     # Fourth button
         label4 = Gtk.Label(label=button_four)
         label4.set_selectable(False)
-        button4_text = Gtk.Button.new_with_label(button_four)
         button4 = Gtk.Button.new_from_icon_name(icon_name=button_four_icon, size=icon_size)
         button4.connect("clicked", self.on_button4_clicked)
     # Fifth button
         label5 = Gtk.Label(label=button_five)
         label5.set_selectable(False)
-        button5_text = Gtk.Button.new_with_label(button_five)
         button5 = Gtk.Button.new_from_icon_name(icon_name=button_five_icon, size=icon_size)
         button5.connect("clicked", self.on_button5_clicked)
 
@@ -97,10 +93,10 @@ class MainWindow(Gtk.Window):
         grid.attach_next_to(label4, button4, Gtk.PositionType.BOTTOM, 1, 1)
         grid.add(button5)
         grid.attach_next_to(label5, button5, Gtk.PositionType.BOTTOM, 1, 1)
-        grid.set_row_spacing(15)
+        grid.set_row_spacing(row_spacing)
         grid.set_row_homogeneous(False)
         grid.set_column_homogeneous(True)
-        grid.set_column_spacing(80)
+        grid.set_column_spacing(column_spacing)
         self.add(grid)
 
     # Button functions
@@ -210,5 +206,6 @@ if __name__ == "__main__":
     win.set_visual(visual)
     win.connect("destroy", Gtk.main_quit)
     win.show_all()
-    win.move(-1,-5)
+    # win.fullscreen()
+    win.move(-1, -5)
     Gtk.main()
