@@ -8,7 +8,7 @@ from gi.repository import Gtk, Gdk
 # Set transparency
 CSS = b"""
 #mainWindow {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(40,40,40, 0.5);
 }
 """
 

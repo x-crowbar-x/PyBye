@@ -10,7 +10,7 @@ config.add_section("Commands")
 config.set("Commands", "button_one_command", "shutdown now")
 config.set("Commands", "button_two_command", "reboot")
 config.set("Commands", "button_three_command", "systemctl suspend && slock")
-config.set("Commands", "button_four_command", "slock")
+config.set("Commands", "button_four_command", "light-locker-command -l")
 config.set("Commands", "button_five_command", "pkill -u $USER")
 
 config.add_section("Icons")
