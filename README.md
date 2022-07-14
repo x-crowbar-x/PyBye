@@ -32,6 +32,7 @@ The program has a configuration file to change it to your liking.
 * The shutdown, reboot, suspend commands are standart SystemD commands, but to lock screen I use `light-locker` (locker for `lightdm`). You can easily change it in the config file.
 * The icons are <b>theme-dependent</b>. In order to change the default ones, you need to specify the exact name (without the file extention) of the icon of the currently installed GTK3 theme. The maximum size of default icons is 6. After changing the icons and their size, that is bigger than 6, run the script in the command line to see if there are any errors related to the icons.
 * The transparency effect is achieved through the use of a compositor. I use the `picom` compositor. If you have no idea how to configure `picom`, here is my [picom config](https://github.com/x-crowbar-x/Dotfiles/tree/main/picom). Install `picom` and put this file inside `~/.config/picom/` directory. Then make this command `picom --experimental-backends &` (with or without `--experimental-backends`) to run after logging in.
+* If the resolution of the screen is correct in the config and for some reason the window is not fullscreen, try to uncomment `win.fullscreen()` (remove the `#`) on line 208 and comment out the next line `win.move(-1, -5)` and run PyBye again.
 
 ****
 
