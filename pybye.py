@@ -8,7 +8,7 @@ from gi.repository import Gtk, Gdk
 # Set transparency
 CSS = b"""
 #mainWindow {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(40,40,40, 0.5);
 }
 """
 
@@ -16,13 +16,12 @@ CSS = b"""
 class ConfirmAction(Gtk.Dialog):
     def __init__(self, parent):
         super().__init__(title="Confirm", transient_for=parent, modal=True)
-        self.set_size_request(200, 100)
+        self.set_size_request(210, 100)
         self.add_buttons(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, status, Gtk.ResponseType.YES
         )
 
-        label = Gtk.Label(label="\nAre you sure?")
-
+        label = Gtk.Label(label=f"\nDo you wish to {status.lower()}?")
         box = self.get_content_area()
         box.add(label)
         self.show_all()
@@ -111,7 +110,7 @@ class MainWindow(Gtk.Window):
             if response == Gtk.ResponseType.YES:
                 click = os.system(button_one_command)
             elif response == Gtk.ResponseType.CANCEL:
-                dialog.destroy()
+                dialog.hide()
         elif confirmation == "False":
             click = os.system(button_one_command)
 
@@ -126,7 +125,7 @@ class MainWindow(Gtk.Window):
             if response == Gtk.ResponseType.YES:
                 click = os.system(button_two_command)
             elif response == Gtk.ResponseType.CANCEL:
-                dialog.destroy()
+                dialog.hide()
         elif confirmation == "False":
             click = os.system(button_two_command)
 
@@ -141,7 +140,7 @@ class MainWindow(Gtk.Window):
                 click = os.system(button_three_command)
                 Gtk.main_quit()
             elif response == Gtk.ResponseType.CANCEL:
-                dialog.destroy()
+                dialog.hide()
         elif confirmation == "False":
             click = os.system(button_three_command)
             Gtk.main_quit()
@@ -157,7 +156,7 @@ class MainWindow(Gtk.Window):
                 click = os.system(button_four_command)
                 Gtk.main_quit()
             elif response == Gtk.ResponseType.CANCEL:
-                dialog.destroy()
+                dialog.hide()
         elif confirmation == "False":
             click = os.system(button_four_command)
             Gtk.main_quit()
@@ -172,7 +171,7 @@ class MainWindow(Gtk.Window):
             if response == Gtk.ResponseType.YES:
                 click = os.system(button_five_command)
             elif response == Gtk.ResponseType.CANCEL:
-                dialog.destroy()
+                dialog.hide()
         elif confirmation == "False":
             click = os.system(button_five_command)
             
@@ -206,6 +205,6 @@ if __name__ == "__main__":
     win.set_visual(visual)
     win.connect("destroy", Gtk.main_quit)
     win.show_all()
-    # win.fullscreen()
+    #win.fullscreen()
     win.move(-1, -5)
     Gtk.main()
