@@ -1,0 +1,42 @@
+#main_window label {
+    font: inherit;
+    font-weight: bold;
+    font-size: large;
+    text-shadow: #3c3836 2px 3px;
+    color: #ebdbb2;
+}
+#main_window {
+    background-color: rgba(40,40,40, 0.6);
+    padding: 0px 0px;
+}
+#main_window button{
+    background-color: rgba(40,40,40, 0.1);
+    border-radius: 50px;
+    padding: 20px 0px;
+    box-shadow: 1px 2px 4px 3px antiquewhite;
+    transition: 0.3s ease-out;
+}
+#main_window button:hover {
+      background-color: rgba(235, 219, 178, 0.461);
+      transition: all 0.3s ease-in;
+}
+#main_window button:focus {
+    outline-color: transparent;
+    outline-style:solid;
+    box-shadow: 0px 0px 0px 6px #ebdbb2;
+    transition: all 0.3s ease-in;
+}
+#main_window button:active {
+    background-color: antiquewhite;
+    transition: all 0.2s ease-in;
+}
+#dialog button:focus {
+    box-shadow: 0px 0px 0px 4px antiquewhite;
+}
+#dialog button:active {
+    background-color: wheat;
+    transition: 0.2s ease-in;
+}
+#dialog label  {
+    font-weight: bold;
+}

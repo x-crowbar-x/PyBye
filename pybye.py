@@ -5,23 +5,21 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
-# Set transparency
-CSS = b"""
-#mainWindow {
-    background-color: rgba(40,40,40, 0.5);
-}
-"""
-
 
 class ConfirmAction(Gtk.Dialog):
     def __init__(self, parent):
-        super().__init__(title="Confirm", transient_for=parent, modal=True)
-        self.set_size_request(210, 100)
-        self.add_buttons(
-            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, status, Gtk.ResponseType.YES
-        )
+        super().__init__(title="Confirm", transient_for=parent, modal=True, name="dialog")
+        self.set_default_size(100, 110)
+        self.set_resizable(False)
+        
+        cancel = self.add_button(Gtk.STOCK_NO, Gtk.ResponseType.CANCEL)
+        yes = self.add_button(Gtk.STOCK_YES, Gtk.ResponseType.YES)
 
-        label = Gtk.Label(label=f"\nDo you wish to {status.lower()}?")
+        cancel.set_halign(0)
+        yes.set_halign(0)
+        cancel.set_valign(1)
+        yes.set_valign(1)
+        label = Gtk.Label(label=f"\n Want to {status.lower()}? ")
         box = self.get_content_area()
         box.add(label)
         self.show_all()
@@ -29,17 +27,16 @@ class ConfirmAction(Gtk.Dialog):
 
 class MainWindow(Gtk.Window):
     def __init__(self):
-        Gtk.Window.__init__(self, title="PyBye", name="mainWindow")
+        Gtk.Window.__init__(self, title="PyBye", name="main_window")
         Gtk.Window.set_default_size(self, width, height)
         self.set_border_width(border_width)
         self.set_decorated(False)
         self.set_resizable(False)
-        self.set_position(Gtk.WindowPosition.CENTER)
         self.connect('key-press-event', self.on_key_pressed)
 
-        # Get transparency using CSS
+        # Get CSS style
         style_provider = Gtk.CssProvider()
-        style_provider.load_from_data(CSS)
+        style_provider.load_from_path("./style.css")
 
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),

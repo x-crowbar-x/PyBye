@@ -16,7 +16,7 @@ config.set("Commands", "button_five_command", "loginctl terminate-session ${XDG_
 config.add_section("Icons")
 config.set("Icons", "button_one_icon", "system-shutdown-symbolic")
 config.set("Icons", "button_two_icon", "system-reboot-symbolic")
-config.set("Icons", "button_three_icon", "sleep-symbolic")
+config.set("Icons", "button_three_icon", "system-suspend-symbolic")
 config.set("Icons", "button_four_icon", "system-lock-screen-symbolic")
 config.set("Icons", "button_five_icon", "system-log-out-symbolic")
 config.set("Icons", "cancel_icon", "stock_calc-cancel")
@@ -80,7 +80,7 @@ enable_cancel = config["Options"]["enable_cancel"].lower()
 row_spacing = int(config["Options"]["space_between_buttons_and_text"])
 column_spacing = int(config["Options"]["space_between_buttons"])
 
-# Variables for tooltip
+# Variables for text
 button_one = config["Text"]["button_one"]
 button_two = config["Text"]["button_two"]
 button_three = config["Text"]["button_three"]
