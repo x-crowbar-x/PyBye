@@ -2,10 +2,11 @@
 Log-out program for Linux desktop.
 ****
 ![Screenshot](/Screenshot/PyBye-window.png "Main window")
+Unfortunately I am not able to update the screenshot for now, as I had to temporarily move from Qtile to Gnome, on which it does not looks as intended. Basicly, it now has animations on mouse hover and focus, as well as big circular buttons.
 ****
 ## What you need to know
 
-PyBye is a simple little log-out program with the help of which, it is more aesthetically pleasing (for me anyway) to end the current session, lock screen or suspend.
+PyBye is a simple little log-out program with the help of which, it is more aesthetically pleasing (for me anyway) to end the current session, lock screen or suspend. And of course this program is mostly for those who use window managers, for obvious reasons. Also, I've customized it for my system and idk how to put appearance settings inside the config... So, for now users can only change the values inside the `style.css` file.
 
 ### Features
 
@@ -31,7 +32,7 @@ The program has a configuration file to change it to your liking.
 ## Additional Info
 * The shutdown, reboot, suspend commands are standart SystemD commands, but to lock screen I use `light-locker` (locker for `lightdm`). You can easily change it in the config file.
 * The icons are <b>theme-dependent</b>. In order to change the default ones, you need to specify the exact name (without the file extention) of the icon of the currently installed GTK3 theme. The maximum size of default icons is 6. After changing the icons and their size, that is bigger than 6, run the script in the command line to see if there are any errors related to the icons.
-* The transparency effect is achieved through the use of a compositor. I use the `picom` compositor. If you have no idea how to configure `picom`, here is my [picom config](https://github.com/x-crowbar-x/Dotfiles/tree/main/picom). Install `picom` and put this file inside `~/.config/picom/` directory. Then make this command `picom --experimental-backends &` (with or without `--experimental-backends`) to run after logging in.
+* The transparency effect is achieved through the use of a compositor. I use the `picom` compositor. Install `picom` and put this file inside `~/.config/picom/` directory. Then make this command `picom --experimental-backends &` (with or without `--experimental-backends`) to run after logging in.
 * If the resolution of the screen is correct in the config and for some reason the window is not fullscreen, try to uncomment `win.fullscreen()` (remove the `#`) on line 208 and comment out the next line `win.move(-1, -5)` and run PyBye again.
 
 ****
@@ -39,10 +40,10 @@ The program has a configuration file to change it to your liking.
 ## Installation
 
 ### Prerequisites
-- Python
+- Python 3
 - GTK 3.0
 
-It is basically a script, so it is possible to just run it as it is. Just put it somewhere in the `$PATH`. 
+It is basically a script, so it is possible to just run it as it is. Just put the files in a separate directory somewhere in the `$PATH`.
 <p>I've never dealt with Makefile files, so I don't know how to write an installation script. I will see what I can do with it.</p>
 
 *****
