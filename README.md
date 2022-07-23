@@ -2,7 +2,7 @@
 Log-out program for Linux desktop.
 ****
 ![Screenshot](/Screenshot/PyBye-window.png "Main window")
-Unfortunately I am not able to update the screenshot for now, as I had to temporarily move from Qtile to Gnome, on which it does not looks as intended. Basicly, it now has animations on mouse hover and focus, as well as big circular buttons.
+Unfortunately I am not able to update the screenshot for now, as I had to temporarily move from Qtile to Gnome, on which it does not look as intended. Basically, it now has animations on mouse hover and focus, as well as big circular buttons.
 ****
 ## What you need to know
 
