@@ -2,7 +2,7 @@
 Log-out program for Linux desktop.
 ****
 ![Screenshot](/Screenshot/PyBye-window.png "Main window")
-Unfortunately I am not able to update the screenshot for now, as I had to temporarily move from Qtile to Gnome, on which it does not look as intended. Basically, it now has animations on mouse hover and focus, as well as big circular buttons.
+
 ****
 ## What you need to know
 
@@ -24,16 +24,17 @@ The program has a configuration file to change it to your liking.
 - Enable the cancel button. (Also don't know if anyone would need it, because I set Escape button to close the window.)
 - Specify how much space between buttons and text you would like to have.
 - And also specify the spacing between the buttons.
+- Disable fullscreen mode.
 
 <b>The config file is located in `~/.config/PyBye/pybye.conf`.</b>
 
 ****
 
 ## Additional Info
-* The shutdown, reboot, suspend commands are standart SystemD commands, but to lock screen I use `light-locker` (locker for `lightdm`). You can easily change it in the config file.
-* The icons are <b>theme-dependent</b>. In order to change the default ones, you need to specify the exact name (without the file extention) of the icon of the currently installed GTK3 theme. The maximum size of default icons is 6. After changing the icons and their size, that is bigger than 6, run the script in the command line to see if there are any errors related to the icons.
-* The transparency effect is achieved through the use of a compositor. I use the `picom` compositor. Install `picom` and put this file inside `~/.config/picom/` directory. Then make this command `picom --experimental-backends &` (with or without `--experimental-backends`) to run after logging in.
-* If the resolution of the screen is correct in the config and for some reason the window is not fullscreen, try to uncomment `win.fullscreen()` (remove the `#`) on line 208 and comment out the next line `win.move(-1, -5)` and run PyBye again.
+* The shutdown, reboot, suspend and log-out commands are standart Systemd commands, but the screen locker is 
+* The icons are <b>theme-dependent</b>. In order to change the default ones, you need to specify the exact name (without the file extention) of the icon of the currently installed GTK3 theme. The maximum size of default icons is 6. After changing the icons and their size, that is larger than 6, run the script in the command line to see if there are any errors related to the icons.
+* The transparency effect is achieved through the use of a compositor. I use the `picom` compositor. Install `picom` and then make this command `picom --experimental-backends &` (with or without `--experimental-backends`) to run after logging in.
+* If the confirmation dialog window appears under the main one for some reason, set the option `Fullscreen` inside the config to `False` and try again.
 
 ****
 
