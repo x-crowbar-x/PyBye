@@ -10,6 +10,7 @@
     padding: 0px 0px;
 }
 #main_window button{
+    background: none;
     background-color: rgba(40,40,40, 0.1);
     border-radius: 50px;
     padding: 20px 0px;
