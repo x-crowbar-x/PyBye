@@ -15,13 +15,13 @@ The program has a configuration file to change it to your liking.
 
 <b><p>You can:</p></b>
 
-- Set any text for the buttons, which makes it possible to change the position of any button. For example, to put suspend on the first place you need to switch the commands of the first and the third buttons, icons and their texts.
 - Change commands and icons.
+- Set any text for the buttons, which makes it possible to change the position of any button. For example, to put suspend on the first place you need to switch the commands of the first and the third buttons, icons and their texts.
 - Specify the border width.
-- Change the size of the main window. <b>BUT, after the latest update it is now 1920x1080, no matter what values below that you put inside the config, unless you also change the value of `border_width`. The same same applies to greater resolutions.</b>
-- Disable confirmation.
+- Change the size of the main window. <b>BUT, after the latest update it is always fullscreen, no matter what values you for the resolution you set in the config, unless you also change the values of `border_width` and `fullscreen_mode`.</b>
+- Disable confirmation dialog.
 - Enable shortcuts (don't even know if anyone would need them at all, but they are `Alt`+(from `1` to `5`)). 
-- Enable the cancel button. (Also don't know if anyone would need it, because I set Escape button to close the window.)
+- Enable the cancel button. (Also don't know if anyone would need it, because I set Escape button to close the dialog and the main window.)
 - Specify how much space between buttons and text you would like to have.
 - And also specify the spacing between the buttons.
 - Disable fullscreen mode.
@@ -45,7 +45,7 @@ The program has a configuration file to change it to your liking.
 - GTK 3.0
 
 It is basically a script, so it is possible to just run it as it is. Just put the files in a separate directory somewhere in the `$PATH`.
-<p>I've never dealt with Makefile files, so I don't know how to write an installation script. I will see what I can do with it.</p>
+<p>I've never dealt with python installation scripts, so I don't know how to do it. I will see what I can do.</p>
 
 *****
 
