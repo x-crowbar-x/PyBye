@@ -33,6 +33,7 @@ config.set("Options", "enable_shortcuts", "True")
 config.set("Options", "enable_cancel", "False")
 config.set("Options", "space_between_buttons_and_text", "15")
 config.set("Options", "space_between_buttons", "80")
+config.set("Options", "fullscreen_mode", "True")
 
 config.add_section("Text")
 config.set("Text", "button_one", "Shutdown")
@@ -79,6 +80,7 @@ enable_shortcuts = config["Options"]["enable_shortcuts"].capitalize()
 enable_cancel = config["Options"]["enable_cancel"].lower()
 row_spacing = int(config["Options"]["space_between_buttons_and_text"])
 column_spacing = int(config["Options"]["space_between_buttons"])
+fullscreen_mode = config["Options"]["fullscreen_mode"].capitalize()
 
 # Variables for text
 button_one = config["Text"]["button_one"]
