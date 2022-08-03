@@ -42,7 +42,7 @@ The program has a configuration file to change it to your liking.
 
 ### Prerequisites
 - Python 3
-- GTK 3.0
+- GTK 3.0 (install `python3-gobject` package)
 
 It is basically a script, so it is possible to just run it as it is. Just put the files in a separate directory somewhere in the `$PATH`.
 <p>I've never dealt with python installation scripts, so I don't know how to do it. I will see what I can do.</p>
