@@ -18,7 +18,7 @@ The program has a configuration file to change it to your liking.
 - Change commands and icons.
 - Set any text for the buttons, which makes it possible to change the position of any button. For example, to put suspend on the first place you need to switch the commands of the first and the third buttons, icons and their texts.
 - Specify the border width.
-- Change the size of the main window. <b>BUT, after the latest update it is always fullscreen, no matter what values you for the resolution you set in the config, unless you also change the values of `border_width` and `fullscreen_mode`.</b>
+- Change the size of the main window. <b>BUT, after the latest update it is always fullscreen, no matter what values for the resolution you set in the config, unless you also change the values of `border_width` and `fullscreen_mode`.</b>
 - Disable confirmation dialog.
 - Enable shortcuts (don't even know if anyone would need them at all, but they are `Alt`+(from `1` to `5`)). 
 - Enable the cancel button. (Also don't know if anyone would need it, because I set Escape button to close the dialog and the main window.)
@@ -31,7 +31,7 @@ The program has a configuration file to change it to your liking.
 ****
 
 ## Additional Info
-* The shutdown, reboot, suspend and log-out commands are standart Systemd commands, but the screen locker is 
+* The shutdown, reboot, suspend and log-out commands are standart Systemd commands, but the command to lock screen you'll need to check what is used in your desktop environment or window manager (sometimes there is none and you will have to manually install something like `light-locker` or `slock`).
 * The icons are <b>theme-dependent</b>. In order to change the default ones, you need to specify the exact name (without the file extention) of the icon of the currently installed GTK3 theme. The maximum size of default icons is 6. After changing the icons and their size, that is larger than 6, run the script in the command line to see if there are any errors related to the icons.
 * The transparency effect is achieved through the use of a compositor. I use the `picom` compositor. Install `picom` and then make this command `picom --experimental-backends &` (with or without `--experimental-backends`) to run after logging in.
 * If the confirmation dialog window appears under the main one for some reason, set the option `Fullscreen` inside the config to `False` and try again.
