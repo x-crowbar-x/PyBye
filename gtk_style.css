@@ -1,0 +1,49 @@
+@define-color bg-color rgba(40,40,40, 0.6);
+@define-color button-bg-color rgba(40,40,40, 0.1);
+@define-color bg-hover rgba(235, 219, 178, 0.461);
+@define-color box-shadow antiquewhite;
+@define-color button-active-bg-color antiquewhite;
+@define-color text-color #ebdbb2;
+@define-color text-shadow #3c3836;
+
+#main_window label {
+    font: inherit;
+    font-weight: bold;
+    font-size: large;
+    text-shadow: @text-shadow 2px 3px;
+    color: @text-color;
+}
+#main_window {
+    background-color: @bg-color;
+    padding: 0px 0px;
+}
+#main_window button{
+    background: none;
+    background-color: @button-bg-color;
+    border-radius: 50px;
+    padding: 20px 0px;
+    box-shadow: 1px 3px 4px 2px @box-shadow;
+    transition: 0.1s ease-out;
+}
+#main_window button:hover {
+      background-color: @bg-hover;
+      transition: all 0.2s ease-in;
+}
+#main_window button:focus {
+    box-shadow: 0px 0px 0px 6px @box-shadow;
+    transition: all 0.2s ease-in;
+}
+#main_window button:active {
+    background-color: @button-active-bg-color;
+    transition: all 0.2s ease-in;
+}
+#dialog button:focus {
+    box-shadow: 0px 0px 0px 4px @bg-hover;
+}
+#dialog button:active {
+    background-color: @button-active-bg-color;
+    transition: 0.2s ease-in;
+}
+#dialog label  {
+    font-weight: bold;
+}
