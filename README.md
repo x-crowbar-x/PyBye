@@ -6,7 +6,7 @@ Log-out program for Linux desktop.
 ****
 ## What you need to know
 
-PyBye is a simple little log-out program with the help of which, it is more aesthetically pleasing (for me anyway) to end the current session, lock screen or suspend. And of course this program is mostly for those who use window managers, for obvious reasons. Also, I've customized it for my system and idk how to put appearance settings inside the config... So, for now users can only change the values inside the `style.css` file.
+PyBye is a simple little log-out program with the help of which, it is more aesthetically pleasing (for me anyway) to end the current session, lock screen or suspend. And of course this program is mostly for those who use window managers, for obvious reasons.
 
 ### Features
 
@@ -16,6 +16,7 @@ The program has a configuration file to change it to your liking.
 <b><p>You can:</p></b>
 
 - Change commands and icons.
+- Change colors.
 - Set any text for the buttons, which makes it possible to change the position of any button. For example, to put suspend on the first place you need to switch the commands of the first and the third buttons, icons and their texts.
 - Specify the border width.
 - Change the size of the main window. <b>BUT, after the latest update it is always fullscreen, no matter what values for the resolution you set in the config, unless you also change the values of `border_width` and `fullscreen_mode`.</b>
@@ -44,7 +45,7 @@ The program has a configuration file to change it to your liking.
 - Python 3
 - GTK 3.0 (install `python3-gobject` package)
 
-It is basically a script, so it is possible to just run it as it is. Just put the files in a separate directory somewhere in the `$PATH`.
+It is basically a script, devided into two separate files, so it is possible to just run it as it is. Just put the files in a separate directory somewhere in the `$PATH`.
 <p>I've never dealt with python installation scripts, so I don't know how to do it. I will see what I can do.</p>
 
 *****
