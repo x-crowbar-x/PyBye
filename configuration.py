@@ -128,7 +128,7 @@ vars_list = [
     text_color,
     text_shadow,
 ]
-# rewrites the variables inside gtk_style.css.
+# Rewrites the variables inside gtk_style.css to change colors.
 path_to_css = os.path.dirname(os.path.abspath(__file__)) + "/gtk_style.css"
 with open(path_to_css, 'r') as css_file:
     for i in range(0, 7):
