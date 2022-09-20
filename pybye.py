@@ -5,7 +5,7 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
-# functions to change cursor
+# Functions used to change cursor.
 def to_watch_cursor_switch():
     watch_cursor = Gdk.Cursor(Gdk.CursorType.WATCH)
     win.get_window().set_cursor(watch_cursor)
@@ -56,7 +56,7 @@ class MainWindow(Gtk.Window):
         self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
         self.connect('key-press-event', self.on_key_pressed)
 
-        # Get CSS style
+        # Get CSS style from a file.
         path_to_css = os.path.dirname(os.path.abspath(__file__)) + "/gtk_style.css"
         style_provider = Gtk.CssProvider()
         style_provider.load_from_path(path_to_css)
@@ -65,34 +65,34 @@ class MainWindow(Gtk.Window):
             style_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
-    # First button
+    # First button.
         label1 = Gtk.Label(label=button_one)
         label1.set_selectable(False)
         button1 = Gtk.Button.new_from_icon_name(icon_name=button_one_icon,
                                                 size=icon_size
                                                 )
         button1.connect("clicked", self.on_button1_clicked)
-    # Second button
+    # Second button.
         label2 = Gtk.Label(label=button_two)
         label2.set_selectable(False)
         button2 = Gtk.Button.new_from_icon_name(icon_name=button_two_icon,
                                                 size=icon_size
                                                 )
         button2.connect("clicked", self.on_button2_clicked)
-    # Third button
+    # Third button.
         label3 = Gtk.Label(label=button_three)
         label3.set_selectable(False)
         button3 = Gtk.Button.new_from_icon_name(icon_name=button_three_icon,
                                                 size=icon_size
                                                 )
         button3.connect("clicked", self.on_button3_clicked)
-    # Fourth button
+    # Fourth button.
         label4 = Gtk.Label(label=button_four)
         label4.set_selectable(False)
         button4 = Gtk.Button.new_from_icon_name(icon_name=button_four_icon,
                                                 size=icon_size)
         button4.connect("clicked", self.on_button4_clicked)
-    # Fifth button
+    # Fifth button.
         label5 = Gtk.Label(label=button_five)
         label5.set_selectable(False)
         button5 = Gtk.Button.new_from_icon_name(icon_name=button_five_icon,
@@ -100,21 +100,8 @@ class MainWindow(Gtk.Window):
                                                 )
         button5.connect("clicked", self.on_button5_clicked)
 
-    # Add buttons and labels to the grid
-        grid = Gtk.Grid()
-        if enable_cancel == "True":
-            label_cancel = Gtk.Label(label="Cancel")
-            cancel = Gtk.Button.new_from_icon_name(icon_name=cancel_icon,
-                                                   size=icon_size
-                                                   )
-            cancel.connect("clicked", self.on_cancel_pressed)
-            grid.add(cancel)
-            grid.attach_next_to(label_cancel,
-                                cancel,
-                                Gtk.PositionType.BOTTOM,
-                                1, 1
-                                )
-        
+    # Add buttons and labels to the grid.
+        grid = Gtk.Grid()        
         grid.add(button1)
         grid.attach_next_to(label1, button1,
                             Gtk.PositionType.BOTTOM,
@@ -147,7 +134,7 @@ class MainWindow(Gtk.Window):
         grid.set_column_spacing(column_spacing)
         self.add(grid)
 
-    # Button functions
+    # Button functions.
     def on_button1_clicked(self, widget):
         to_watch_cursor_switch()
 
@@ -239,7 +226,7 @@ class MainWindow(Gtk.Window):
         elif confirmation == "False":
             click = os.system(button_five_command)
             
-    # Key press function
+    # Key press function.
     def on_key_pressed(self, widget, event):
         pressed_key = Gdk.keyval_name(event.keyval)
         alt = (event.state & Gdk.ModifierType.MOD1_MASK)
@@ -259,9 +246,7 @@ class MainWindow(Gtk.Window):
             elif alt and pressed_key == "5":
                 but5 = os.system(button_five_command)
 
-    def on_cancel_pressed(self, cancel):
-        Gtk.main_quit()
-    
+
 if __name__ == "__main__":
     win = MainWindow()
     screen = win.get_screen()
@@ -272,8 +257,6 @@ if __name__ == "__main__":
 
     if fullscreen_mode == "True":
         win.fullscreen()
-    else:
-        win.move(-1, -5)
-
-    to_arrow_cursor_switch()
+    # else:
+    #     win.move(-1, -5)
     Gtk.main()

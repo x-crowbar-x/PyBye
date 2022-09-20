@@ -5,7 +5,7 @@ home = os.path.expanduser('~')
 path_to_config = home + "/.config/PyBye/pybye.conf"
 config = configparser.ConfigParser()
 
-# Configuration to write to the configfile
+# Configuration to write to the configfile.
 config.add_section("Commands") 
 config.set("Commands", "button_one_command", "shutdown now")
 config.set("Commands", "button_two_command", "reboot")
@@ -25,7 +25,6 @@ config.set("Icons", "button_two_icon", "system-reboot-symbolic")
 config.set("Icons", "button_three_icon", "system-suspend-symbolic")
 config.set("Icons", "button_four_icon", "system-lock-screen-symbolic")
 config.set("Icons", "button_five_icon", "system-log-out-symbolic")
-config.set("Icons", "cancel_icon", "stock_calc-cancel")
 
 config.add_section("Size")
 config.set("Size", "Width", "1920")
@@ -36,7 +35,6 @@ config.set("Size", "icon_size", "6")
 config.add_section("Options")
 config.set("Options", "ask_for_confirmation", "True")
 config.set("Options", "enable_shortcuts", "True")
-config.set("Options", "enable_cancel", "False")
 config.set("Options", "space_between_buttons_and_text", "15")
 config.set("Options", "space_between_buttons", "80")
 config.set("Options", "fullscreen_mode", "True")
@@ -57,54 +55,52 @@ config.set("Colors", "button_activate", "antiquewhite")
 config.set("Colors", "text_color", "#ebdbb2")
 config.set("Colors", "text_shadow", "#3c3836")
 
-# Create folder for config file if it does not exist yet
+# Create folder for config file if it does not exist yet.
 if not os.path.exists(home + "/.config/PyBye/"):
     os.mkdir(home + "/.config/PyBye/")
 
-# Write configuration to the file if the file does not exist yet
+# Write configuration to the file if the file does not exist yet.
 if not os.path.exists(path_to_config):
     with open(path_to_config, 'w') as conf:
         config.write(conf)
 
 config.read(path_to_config)
 
-# Variables for icons
+# Variables for icons.
 button_one_icon = config["Icons"]["button_one_icon"]
 button_two_icon = config["Icons"]["button_two_icon"]
 button_three_icon = config["Icons"]["button_three_icon"]
 button_four_icon = config["Icons"]["button_four_icon"]
 button_five_icon = config["Icons"]["button_five_icon"]
-cancel_icon = config["Icons"]["cancel_icon"]
 
-# Variables for commands
+# Variables for commands.
 button_one_command = config["Commands"]["button_one_command"]
 button_two_command = config["Commands"]["button_two_command"]
 button_three_command = config["Commands"]["button_three_command"]
 button_four_command = config["Commands"]["button_four_command"]
 button_five_command = config["Commands"]["button_five_command"]
 
-# Variables for size
+# Variables for size.
 width = int(config["Size"]["Width"])
 height = int(config["Size"]["Height"])
 border_width = int(config["Size"]["Border_width"])
 icon_size = int(config["Size"]["icon_size"])
 
-# Variables for options
+# Variables for options.
 confirmation = config["Options"]["ask_for_confirmation"].capitalize()
 enable_shortcuts = config["Options"]["enable_shortcuts"].capitalize()
-enable_cancel = config["Options"]["enable_cancel"].capitalize()
 row_spacing = int(config["Options"]["space_between_buttons_and_text"])
 column_spacing = int(config["Options"]["space_between_buttons"])
 fullscreen_mode = config["Options"]["fullscreen_mode"].capitalize()
 
-# Variables for text
+# Variables for text.
 button_one = config["Text"]["button_one"]
 button_two = config["Text"]["button_two"]
 button_three = config["Text"]["button_three"]
 button_four = config["Text"]["button_four"]
 button_five = config["Text"]["button_five"]
 
-# Variables for colors
+# Variables for colors.
 background_color = config["Colors"]["background_color"]
 button_background = config["Colors"]["button_background"]
 button_hover = config["Colors"]["button_hover"]
@@ -132,7 +128,7 @@ vars_list = [
     text_color,
     text_shadow,
 ]
-# rewrites the variables inside gtk_style.css
+# Rewrites the variables inside gtk_style.css to change colors.
 path_to_css = os.path.dirname(os.path.abspath(__file__)) + "/gtk_style.css"
 with open(path_to_css, 'r') as css_file:
     for i in range(0, 7):
