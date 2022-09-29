@@ -147,6 +147,8 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 click = os.system(button_one_command)
+                to_arrow_cursor_switch()
+                Gtk.main_quit()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
                 dialog.hide()
@@ -165,6 +167,8 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 click = os.system(button_two_command)
+                to_arrow_cursor_switch()
+                Gtk.main_quit()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
                 dialog.hide()
@@ -182,6 +186,7 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 click = os.system(button_three_command)
+                to_arrow_cursor_switch()
                 Gtk.main_quit()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
@@ -201,6 +206,7 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 click = os.system(button_four_command)
+                to_arrow_cursor_switch()
                 Gtk.main_quit()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
@@ -220,6 +226,8 @@ class MainWindow(Gtk.Window):
             
             if response == Gtk.ResponseType.YES:
                 click = os.system(button_five_command)
+                to_arrow_cursor_switch()
+                Gtk.main_quit()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
                 dialog.hide()
