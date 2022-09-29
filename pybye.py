@@ -1,5 +1,6 @@
 #!/usr/bin/python
-from configuration import *
+from create_config import *
+import subprocess
 import gi
 
 gi.require_version("Gtk", "3.0")
@@ -14,6 +15,29 @@ def to_watch_cursor_switch():
 def to_arrow_cursor_switch():
     arrow_cursor = Gdk.Cursor(Gdk.CursorType.ARROW)
     win.get_window().set_cursor(arrow_cursor)
+
+# Runs a command and displays an error if there is one.
+def run_command(shell_command):
+    try:
+        click = subprocess.check_output((shell_command), shell=True)
+    except subprocess.CalledProcessError as error:
+        dialog = Gtk.MessageDialog(
+            transient_for=MainWindow(),
+            flags=0,
+            message_type=Gtk.MessageType.ERROR,
+            buttons=Gtk.ButtonsType.CLOSE,
+            text="There's been an error while running the command",
+        )
+        dialog.format_secondary_text(
+            str(error)
+        )
+        response = dialog.run()
+        dialog.destroy()
+        if response == Gtk.ResponseType.CLOSE:
+            to_arrow_cursor_switch()
+    else:
+        to_arrow_cursor_switch()
+        Gtk.main_quit()
 
 
 class ConfirmAction(Gtk.Dialog):
@@ -146,12 +170,13 @@ class MainWindow(Gtk.Window):
             response = dialog.run()
 
             if response == Gtk.ResponseType.YES:
-                click = os.system(button_one_command)
+                run_command(button_one_command)
+                dialog.hide()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
                 dialog.hide()
         elif confirmation == "False":
-            click = os.system(button_one_command)
+            run_command(button_one_command)
 
     def on_button2_clicked(self, widget):
         to_watch_cursor_switch()
@@ -164,12 +189,13 @@ class MainWindow(Gtk.Window):
             response = dialog.run()
 
             if response == Gtk.ResponseType.YES:
-                click = os.system(button_two_command)
+                run_command(button_two_command)
+                dialog.hide()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
                 dialog.hide()
         elif confirmation == "False":
-            click = os.system(button_two_command)
+            run_command(button_two_command)
 
     def on_button3_clicked(self, widget):
         to_watch_cursor_switch()
@@ -181,14 +207,13 @@ class MainWindow(Gtk.Window):
             response = dialog.run()
 
             if response == Gtk.ResponseType.YES:
-                click = os.system(button_three_command)
-                Gtk.main_quit()
+                run_command(button_three_command)
+                dialog.hide()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
                 dialog.hide()
         elif confirmation == "False":
-            click = os.system(button_three_command)
-            Gtk.main_quit()
+            run_command(button_three_command)
 
     def on_button4_clicked(self, widget):
         to_watch_cursor_switch()
@@ -200,14 +225,13 @@ class MainWindow(Gtk.Window):
             response = dialog.run()
 
             if response == Gtk.ResponseType.YES:
-                click = os.system(button_four_command)
-                Gtk.main_quit()
+                run_command(button_four_command)
+                dialog.hide()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
                 dialog.hide()
         elif confirmation == "False":
-            click = os.system(button_four_command)
-            Gtk.main_quit()
+            run_command(button_four_command)
     
     def on_button5_clicked(self, widget):
         to_watch_cursor_switch()
@@ -219,12 +243,13 @@ class MainWindow(Gtk.Window):
             response = dialog.run()
             
             if response == Gtk.ResponseType.YES:
-                click = os.system(button_five_command)
+                run_command(button_five_command)
+                dialog.hide()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
                 dialog.hide()
         elif confirmation == "False":
-            click = os.system(button_five_command)
+            run_command(button_five_command)
             
     # Key press function.
     def on_key_pressed(self, widget, event):
