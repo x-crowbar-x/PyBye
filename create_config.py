@@ -11,10 +11,10 @@ config.set("Commands", "button_one_command", "shutdown now")
 config.set("Commands", "button_two_command", "reboot")
 config.set("Commands", \
            "button_three_command", 
-           "systemctl suspend && light-locker-command -l")
+           "systemctl suspend")
 config.set("Commands", \
            "button_four_command", \
-           "light-locker-command -l")
+           "dm-tool lock")
 config.set("Commands", \
            "button_five_command", \
            "loginctl terminate-session ${XDG_SESSION_ID-}")
