@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/bin/python3
 from create_config import *
 import subprocess
 import gi
@@ -54,7 +54,7 @@ class ConfirmAction(Gtk.Dialog):
         cancel = self.add_button(Gtk.STOCK_NO, Gtk.ResponseType.CANCEL)
         yes = self.add_button(status.capitalize(), Gtk.ResponseType.YES)
 
-        label = Gtk.Label(label=f"\n Are you sure?")
+        label = Gtk.Label(label="\n Are you sure?")
         box = self.get_content_area()
         box.add(label)
         self.show_all()
@@ -171,10 +171,9 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 run_command(button_one_command)
-                dialog.hide()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
-                dialog.hide()
+            dialog.hide()
         elif confirmation == "False":
             run_command(button_one_command)
 
@@ -190,10 +189,9 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 run_command(button_two_command)
-                dialog.hide()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
-                dialog.hide()
+            dialog.hide()
         elif confirmation == "False":
             run_command(button_two_command)
 
@@ -208,10 +206,9 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 run_command(button_three_command)
-                dialog.hide()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
-                dialog.hide()
+            dialog.hide()
         elif confirmation == "False":
             run_command(button_three_command)
 
@@ -226,10 +223,9 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 run_command(button_four_command)
-                dialog.hide()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
-                dialog.hide()
+            dialog.hide()
         elif confirmation == "False":
             run_command(button_four_command)
     
@@ -244,10 +240,9 @@ class MainWindow(Gtk.Window):
             
             if response == Gtk.ResponseType.YES:
                 run_command(button_five_command)
-                dialog.hide()
             elif response == Gtk.ResponseType.CANCEL:
                 to_arrow_cursor_switch()
-                dialog.hide()
+            dialog.hide()
         elif confirmation == "False":
             run_command(button_five_command)
             
