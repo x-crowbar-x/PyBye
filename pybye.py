@@ -171,8 +171,7 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 run_command(button_one_command)
-            elif response == Gtk.ResponseType.CANCEL:
-                to_arrow_cursor_switch()
+            to_arrow_cursor_switch()
             dialog.hide()
         elif confirmation == "False":
             run_command(button_one_command)
@@ -189,8 +188,7 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 run_command(button_two_command)
-            elif response == Gtk.ResponseType.CANCEL:
-                to_arrow_cursor_switch()
+            to_arrow_cursor_switch()
             dialog.hide()
         elif confirmation == "False":
             run_command(button_two_command)
@@ -206,8 +204,7 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 run_command(button_three_command)
-            elif response == Gtk.ResponseType.CANCEL:
-                to_arrow_cursor_switch()
+            to_arrow_cursor_switch()
             dialog.hide()
         elif confirmation == "False":
             run_command(button_three_command)
@@ -223,8 +220,7 @@ class MainWindow(Gtk.Window):
 
             if response == Gtk.ResponseType.YES:
                 run_command(button_four_command)
-            elif response == Gtk.ResponseType.CANCEL:
-                to_arrow_cursor_switch()
+            to_arrow_cursor_switch()
             dialog.hide()
         elif confirmation == "False":
             run_command(button_four_command)
@@ -240,8 +236,7 @@ class MainWindow(Gtk.Window):
             
             if response == Gtk.ResponseType.YES:
                 run_command(button_five_command)
-            elif response == Gtk.ResponseType.CANCEL:
-                to_arrow_cursor_switch()
+            to_arrow_cursor_switch()
             dialog.hide()
         elif confirmation == "False":
             run_command(button_five_command)
