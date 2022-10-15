@@ -47,14 +47,15 @@ class ConfirmAction(Gtk.Dialog):
                          modal=True,
                          name="dialog"
                          )
-        self.set_default_size(100, 120)
+        self.set_default_size(150, 120)
         self.set_resizable(False)
+        self.set_decorated(False)
         self.connect('key-press-event', self.on_escape_pressed)
 
         cancel = self.add_button(Gtk.STOCK_NO, Gtk.ResponseType.CANCEL)
-        yes = self.add_button(status.capitalize(), Gtk.ResponseType.YES)
+        yes = self.add_button(Gtk.STOCK_YES, Gtk.ResponseType.YES)
 
-        label = Gtk.Label(label="\n Are you sure?")
+        label = Gtk.Label(label=f"\n\nDo you want to {status.lower()}?")
         box = self.get_content_area()
         box.add(label)
         self.show_all()
@@ -76,8 +77,6 @@ class MainWindow(Gtk.Window):
         Gtk.Window.set_default_size(self, width, height)
         self.set_border_width(border_width)
         self.set_decorated(False)
-        self.set_resizable(False)
-        self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
         self.connect('key-press-event', self.on_key_pressed)
 
         # Get CSS style from a file.
