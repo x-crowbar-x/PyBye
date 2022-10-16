@@ -128,12 +128,21 @@ vars_list = [
     text_color,
     text_shadow,
 ]
+
 # Rewrites the variables inside gtk_style.css to change colors.
-path_to_css = os.path.dirname(os.path.abspath(__file__)) + "/gtk_style.css"
-with open(path_to_css, 'r') as css_file:
-    for i in range(0, 7):
+def save_colors(n):
+    path_to_css = os.path.dirname(os.path.abspath(__file__)) + "/gtk_style.css"
+    with open(path_to_css, 'r') as css_file:
+        if n == 7:
+            return
         css_file.seek(0)
         lines = css_file.readlines()
-        lines[i] = lines_list[i] + vars_list[i] + ';\n'
-        with open(path_to_css, 'w') as file:
-            file.writelines(lines)
+        if lines[n] == lines_list[n] + vars_list[n] + ';\n':
+            save_colors(n+1)
+        else:
+            lines[n] = lines_list[n] + vars_list[n] + ';\n'
+            with open(path_to_css, 'w') as file:
+                file.writelines(lines)
+            save_colors(n+1)
+
+save_colors(0)

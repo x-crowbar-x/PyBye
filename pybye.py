@@ -86,69 +86,33 @@ class MainWindow(Gtk.Window):
             style_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
-    # First button.
-        label1 = Gtk.Label(label=button_one)
-        label1.set_selectable(False)
-        button1 = Gtk.Button.new_from_icon_name(icon_name=button_one_icon,
-                                                size=icon_size
-                                                )
-        button1.connect("clicked", self.on_button1_clicked)
-    # Second button.
-        label2 = Gtk.Label(label=button_two)
-        label2.set_selectable(False)
-        button2 = Gtk.Button.new_from_icon_name(icon_name=button_two_icon,
-                                                size=icon_size
-                                                )
-        button2.connect("clicked", self.on_button2_clicked)
-    # Third button.
-        label3 = Gtk.Label(label=button_three)
-        label3.set_selectable(False)
-        button3 = Gtk.Button.new_from_icon_name(icon_name=button_three_icon,
-                                                size=icon_size
-                                                )
-        button3.connect("clicked", self.on_button3_clicked)
-    # Fourth button.
-        label4 = Gtk.Label(label=button_four)
-        label4.set_selectable(False)
-        button4 = Gtk.Button.new_from_icon_name(icon_name=button_four_icon,
-                                                size=icon_size)
-        button4.connect("clicked", self.on_button4_clicked)
-    # Fifth button.
-        label5 = Gtk.Label(label=button_five)
-        label5.set_selectable(False)
-        button5 = Gtk.Button.new_from_icon_name(icon_name=button_five_icon,
-                                                size=icon_size
-                                                )
-        button5.connect("clicked", self.on_button5_clicked)
 
-    # Add buttons and labels to the grid.
+        dic = {
+            1: [button_one, button_one_icon, self.on_button1_clicked],
+            2: [button_two, button_two_icon, self.on_button2_clicked],
+            3: [button_three, button_three_icon, self.on_button3_clicked],
+            4: [button_four, button_four_icon, self.on_button4_clicked],
+            5: [button_five, button_five_icon, self.on_button5_clicked],
+        }
+        
         grid = Gtk.Grid()
-        grid.add(button1)
-        grid.attach_next_to(label1, button1,
-                            Gtk.PositionType.BOTTOM,
-                            1, 1
-                            )
-        grid.add(button2)
-        grid.attach_next_to(label2, button2,
-                            Gtk.PositionType.BOTTOM,
-                            1, 1
-                            )
-        grid.add(button3)
-        grid.attach_next_to(label3, button3,
-                            Gtk.PositionType.BOTTOM,
-                            1, 1
-                            )
-        grid.add(button4)
-        grid.attach_next_to(label4,
-                            button4,
-                            Gtk.PositionType.BOTTOM, 
-                            1, 1
-                            )
-        grid.add(button5)
-        grid.attach_next_to(label5, button5,
-                            Gtk.PositionType.BOTTOM, 
-                            1, 1
-                            )
+
+        def buttons_and_labels(n):
+            label = Gtk.Label(label=dic[n][0])
+            label.set_selectable(False)
+            button = Gtk.Button.new_from_icon_name(icon_name=dic[n][1],
+                                                    size=icon_size
+                                                    )
+            button.connect("clicked", dic[n][2])
+            grid.add(button)
+            grid.attach_next_to(label, button,
+                                Gtk.PositionType.BOTTOM,
+                                1, 1)
+            if n == 5:
+                return
+            buttons_and_labels(n+1)
+
+        buttons_and_labels(1)
         grid.set_row_spacing(row_spacing)
         grid.set_row_homogeneous(False)
         grid.set_column_homogeneous(True)
@@ -225,7 +189,8 @@ class MainWindow(Gtk.Window):
             dialog.hide()
         elif confirmation == "False":
             run_command(button_five_command)
-            
+
+
     # Key press function.
     def on_key_pressed(self, widget, event):
         pressed_key = Gdk.keyval_name(event.keyval)
