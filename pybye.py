@@ -7,12 +7,12 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
 # Functions used to change cursor.
-def to_watch_cursor_switch():
+def switch_to_watch_cursor():
     watch_cursor = Gdk.Cursor(Gdk.CursorType.WATCH)
     win.get_window().set_cursor(watch_cursor)
 
 
-def to_arrow_cursor_switch():
+def switch_to_arrow_cursor():
     arrow_cursor = Gdk.Cursor(Gdk.CursorType.ARROW)
     win.get_window().set_cursor(arrow_cursor)
 
@@ -34,22 +34,21 @@ def run_command(shell_command):
         response = dialog.run()
         dialog.destroy()
         if response == Gtk.ResponseType.CLOSE:
-            to_arrow_cursor_switch()
+            switch_to_arrow_cursor()
     else:
-        to_arrow_cursor_switch()
+        switch_to_arrow_cursor()
         Gtk.main_quit()
 
 
 class ConfirmAction(Gtk.Dialog):
     def __init__(self, parent):
-        super().__init__(title="Confirm",
+        super().__init__(title=status,
                          transient_for=parent,
                          modal=True,
                          name="dialog"
                          )
         self.set_default_size(150, 120)
         self.set_resizable(False)
-        self.set_decorated(False)
         self.connect('key-press-event', self.on_escape_pressed)
 
         cancel = self.add_button(Gtk.STOCK_NO, Gtk.ResponseType.CANCEL)
@@ -63,9 +62,8 @@ class ConfirmAction(Gtk.Dialog):
     def on_escape_pressed(self, widget, event):
         pressed_key = Gdk.keyval_name(event.keyval)
         alt = (event.state & Gdk.ModifierType.MOD1_MASK)
-
         if pressed_key == "Escape":
-            to_arrow_cursor_switch()
+            switch_to_arrow_cursor()
             self.hide()
 
 class MainWindow(Gtk.Window):
@@ -79,7 +77,7 @@ class MainWindow(Gtk.Window):
         self.set_decorated(False)
         self.connect('key-press-event', self.on_key_pressed)
 
-        # Get CSS style from a file.
+        # Get CSS style for GTK+3 from a file.
         path_to_css = os.path.dirname(os.path.abspath(__file__)) + "/gtk_style.css"
         style_provider = Gtk.CssProvider()
         style_provider.load_from_path(path_to_css)
@@ -124,7 +122,7 @@ class MainWindow(Gtk.Window):
         button5.connect("clicked", self.on_button5_clicked)
 
     # Add buttons and labels to the grid.
-        grid = Gtk.Grid()        
+        grid = Gtk.Grid()
         grid.add(button1)
         grid.attach_next_to(label1, button1,
                             Gtk.PositionType.BOTTOM,
@@ -159,83 +157,71 @@ class MainWindow(Gtk.Window):
 
     # Button functions.
     def on_button1_clicked(self, widget):
-        to_watch_cursor_switch()
-
+        switch_to_watch_cursor()
         if confirmation == "True":
             global status
             status = button_one
-
             dialog = ConfirmAction(self)
             response = dialog.run()
-
             if response == Gtk.ResponseType.YES:
                 run_command(button_one_command)
-            to_arrow_cursor_switch()
+            switch_to_arrow_cursor()
             dialog.hide()
         elif confirmation == "False":
             run_command(button_one_command)
 
     def on_button2_clicked(self, widget):
-        to_watch_cursor_switch()
-
+        switch_to_watch_cursor()
         if confirmation == "True":
             global status
             status = button_two
-
             dialog = ConfirmAction(self)
             response = dialog.run()
-
             if response == Gtk.ResponseType.YES:
                 run_command(button_two_command)
-            to_arrow_cursor_switch()
+            switch_to_arrow_cursor()
             dialog.hide()
         elif confirmation == "False":
             run_command(button_two_command)
 
     def on_button3_clicked(self, widget):
-        to_watch_cursor_switch()
-
+        switch_to_watch_cursor()
         if confirmation == "True":
             global status
             status = button_three
             dialog = ConfirmAction(self)
             response = dialog.run()
-
             if response == Gtk.ResponseType.YES:
                 run_command(button_three_command)
-            to_arrow_cursor_switch()
+            switch_to_arrow_cursor()
             dialog.hide()
         elif confirmation == "False":
             run_command(button_three_command)
 
     def on_button4_clicked(self, widget):
-        to_watch_cursor_switch()
-
+        switch_to_watch_cursor()
         if confirmation == "True":
             global status
             status = button_four
             dialog = ConfirmAction(self)
             response = dialog.run()
-
             if response == Gtk.ResponseType.YES:
                 run_command(button_four_command)
-            to_arrow_cursor_switch()
+            switch_to_arrow_cursor()
             dialog.hide()
         elif confirmation == "False":
             run_command(button_four_command)
     
     def on_button5_clicked(self, widget):
-        to_watch_cursor_switch()
-
+        switch_to_watch_cursor()
         if confirmation == "True":
             global status
             status = button_five
             dialog = ConfirmAction(self)
             response = dialog.run()
-            
             if response == Gtk.ResponseType.YES:
                 run_command(button_five_command)
-            to_arrow_cursor_switch()
+            switch_to_arrow_cursor()
             dialog.hide()
         elif confirmation == "False":
             run_command(button_five_command)
@@ -244,10 +230,8 @@ class MainWindow(Gtk.Window):
     def on_key_pressed(self, widget, event):
         pressed_key = Gdk.keyval_name(event.keyval)
         alt = (event.state & Gdk.ModifierType.MOD1_MASK)
-
         if pressed_key == "Escape":
             Gtk.main_quit()
-            
         if enable_shortcuts == "True":
             if alt and pressed_key == "1":
                 but1 = os.system(button_one_command)
@@ -271,6 +255,4 @@ if __name__ == "__main__":
 
     if fullscreen_mode == "True":
         win.fullscreen()
-    # else:
-    #     win.move(-1, -5)
     Gtk.main()
