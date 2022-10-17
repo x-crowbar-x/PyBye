@@ -21,7 +21,6 @@ The program has a configuration file to change it to your liking.
 - Specify the border width of the window.
 - Change the size of the main window. <b>BUT, after the latest update it is always fullscreen, no matter what values for the resolution you set in the config, unless you also change the values of `border_width` and `fullscreen_mode`.</b>
 - Disable confirmation dialog.
-- Enable shortcuts (don't even know if anyone would need them at all, but they are `Alt`+(from `1` to `5`)). 
 - Specify how much space between buttons and text you would like to have.
 - And also specify the spacing between the buttons.
 - Disable fullscreen mode.
