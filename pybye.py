@@ -340,7 +340,6 @@ class MainWindow(Gtk.Window):
     # Key press function.
     def on_key_pressed(self, widget, event):
         pressed_key = Gdk.keyval_name(event.keyval)
-        alt = (event.state & Gdk.ModifierType.MOD1_MASK)
         if pressed_key == "Escape":
             Gtk.main_quit()
 
