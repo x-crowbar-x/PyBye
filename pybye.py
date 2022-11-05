@@ -1,30 +1,31 @@
 #!/bin/python3
-import os
-import configparser
-import subprocess
+from subprocess import check_output, CalledProcessError
+from os import path, mkdir
+from configparser import ConfigParser
 import gi
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
-home = os.path.expanduser('~')
-path_to_config = home + "/.config/PyBye/pybye.conf"
-config = configparser.ConfigParser()
-path_to_css = os.path.dirname(os.path.abspath(__file__)) + "/gtk_style.css"
+
+HOME = path.expanduser("~")
+PATH_TO_CONFIG = HOME + "/.config/PyBye/pybye.conf"
+PATH_TO_CSS = path.dirname(path.abspath(__file__)) + "/gtk_style.css"
+config = ConfigParser()
 
 # Configuration to write to the configfile.
-config.add_section("Commands") 
+config.add_section("Commands")
 config.set("Commands", "button_one_command", "shutdown now")
 config.set("Commands", "button_two_command", "reboot")
-config.set("Commands", \
-           "button_three_command", 
+config.set("Commands",
+           "button_three_command",
            "systemctl suspend")
-config.set("Commands", \
-           "button_four_command", \
+config.set("Commands",
+           "button_four_command",
            "dm-tool lock")
-config.set("Commands", \
-           "button_five_command", \
-           "loginctl terminate-session ${XDG_SESSION_ID-}")
+config.set("Commands",
+           "button_five_command",
+           "gnome-session-quit --force")
 
 config.add_section("Icons")
 config.set("Icons", "button_one_icon", "system-shutdown-symbolic")
@@ -62,15 +63,15 @@ config.set("Colors", "text_color", "#ebdbb2")
 config.set("Colors", "text_shadow", "#3c3836")
 
 # Create folder for config file if it does not exist yet.
-if not os.path.exists(home + "/.config/PyBye/"):
-    os.mkdir(home + "/.config/PyBye/")
+if not path.exists(HOME + "/.config/PyBye/"):
+    mkdir(HOME + "/.config/PyBye/")
 
 # Write configuration to the file if the file does not exist yet.
-if not os.path.exists(path_to_config):
-    with open(path_to_config, 'w') as conf:
+if not path.exists(PATH_TO_CONFIG):
+    with open(PATH_TO_CONFIG, "w") as conf:
         config.write(conf)
 
-config.read(path_to_config)
+config.read(PATH_TO_CONFIG)
 
 # Variables for icons.
 button_one_icon = config["Icons"]["button_one_icon"]
@@ -115,13 +116,13 @@ text_color = config["Colors"]["text_color"]
 text_shadow = config["Colors"]["text_shadow"]
 
 lines_list = [
-    '@define-color bg-color ',
-    '@define-color button-bg-color ',
-    '@define-color bg-hover ',
-    '@define-color box-shadow ',
-    '@define-color button-active-bg-color ',
-    '@define-color text-color ',
-    '@define-color text-shadow ',
+    "@define-color bg-color ",
+    "@define-color button-bg-color ",
+    "@define-color bg-hover ",
+    "@define-color box-shadow ",
+    "@define-color button-active-bg-color ",
+    "@define-color text-color ",
+    "@define-color text-shadow ",
 ]
 
 vars_list = [
@@ -134,45 +135,50 @@ vars_list = [
     text_shadow,
 ]
 
-# Rewrites the variables inside gtk_style.css 
-# to change colors if the values are different.
+
 def save_colors(n):
-    with open(path_to_css, 'r') as css_file:
+    """"Rewrites the variables inside gtk_style.css 
+        to change colors if the values are different."""
+    with open(PATH_TO_CSS, "r") as css_file:
         if n == 7:
             return
         css_file.seek(0)
         lines = css_file.readlines()
-        if lines[n] == lines_list[n] + vars_list[n] + ';\n':
+        if lines[n] == lines_list[n] + vars_list[n] + ";\n":
             save_colors(n+1)
         else:
-            lines[n] = lines_list[n] + vars_list[n] + ';\n'
-            with open(path_to_css, 'w') as file:
+            lines[n] = lines_list[n] + vars_list[n] + ";\n"
+            with open(PATH_TO_CSS, "w") as file:
                 file.writelines(lines)
             save_colors(n+1)
 
+
 save_colors(0)
 
-# Functions used to change cursor.
+
 def switch_to_watch_cursor():
+    """Changes cursor to 'watch' or 'loading'."""
     watch_cursor = Gdk.Cursor(Gdk.CursorType.WATCH)
     win.get_window().set_cursor(watch_cursor)
 
 
 def switch_to_arrow_cursor():
+    """Changes cursor back to arrow."""
     arrow_cursor = Gdk.Cursor(Gdk.CursorType.ARROW)
     win.get_window().set_cursor(arrow_cursor)
 
-# Runs a command and displays an error if there is one.
+
 def run_command(shell_command):
+    """Runs a command and displays an error if there is one."""
     try:
-        click = subprocess.check_output((shell_command), shell=True)
-    except subprocess.CalledProcessError as error:
+        check_output((shell_command), shell=True)
+    except CalledProcessError as error:
         dialog = Gtk.MessageDialog(
             transient_for=MainWindow(),
             flags=0,
             message_type=Gtk.MessageType.ERROR,
             buttons=Gtk.ButtonsType.CLOSE,
-            text="There's been an error while running the command",
+            text="There's been an error while running the command.",
         )
         dialog.format_secondary_text(
             str(error)
@@ -195,11 +201,9 @@ class ConfirmAction(Gtk.Dialog):
                          )
         self.set_default_size(150, 120)
         self.set_resizable(False)
-        self.connect('key-press-event', self.on_escape_pressed)
-
-        cancel = self.add_button(Gtk.STOCK_NO, Gtk.ResponseType.CANCEL)
-        yes = self.add_button(Gtk.STOCK_YES, Gtk.ResponseType.YES)
-
+        self.connect("key-press-event", self.on_escape_pressed)
+        self.add_button(Gtk.STOCK_NO, Gtk.ResponseType.CANCEL)
+        self.add_button(Gtk.STOCK_YES, Gtk.ResponseType.YES)
         label = Gtk.Label(label=f"\n\nDo you want to {status.lower()}?")
         box = self.get_content_area()
         box.add(label)
@@ -207,10 +211,10 @@ class ConfirmAction(Gtk.Dialog):
 
     def on_escape_pressed(self, widget, event):
         pressed_key = Gdk.keyval_name(event.keyval)
-        alt = (event.state & Gdk.ModifierType.MOD1_MASK)
         if pressed_key == "Escape":
             switch_to_arrow_cursor()
             self.hide()
+
 
 class MainWindow(Gtk.Window):
     def __init__(self):
@@ -221,17 +225,16 @@ class MainWindow(Gtk.Window):
         Gtk.Window.set_default_size(self, width, height)
         self.set_border_width(border_width)
         self.set_decorated(False)
-        self.connect('key-press-event', self.on_key_pressed)
+        self.connect("key-press-event", self.on_key_pressed)
 
         # Get CSS style for GTK+3 from a file.
         style_provider = Gtk.CssProvider()
-        style_provider.load_from_path(path_to_css)
+        style_provider.load_from_path(PATH_TO_CSS)
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),
             style_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
-
         buttons = {
             1: [button_one, button_one_icon, self.on_button1_clicked],
             2: [button_two, button_two_icon, self.on_button2_clicked],
@@ -239,15 +242,17 @@ class MainWindow(Gtk.Window):
             4: [button_four, button_four_icon, self.on_button4_clicked],
             5: [button_five, button_five_icon, self.on_button5_clicked],
         }
-        
         grid = Gtk.Grid()
 
         def buttons_and_labels(n):
+            """Creates 5 buttons and 5 labels under them 
+                with specified text, icons, 
+                icon size and corresponding commands."""
             label = Gtk.Label(label=buttons[n][0])
             label.set_selectable(False)
             button = Gtk.Button.new_from_icon_name(icon_name=buttons[n][1],
-                                                    size=icon_size
-                                                    )
+                                                   size=icon_size
+                                                   )
             button.connect("clicked", buttons[n][2])
             grid.add(button)
             grid.attach_next_to(label, button,
@@ -258,7 +263,7 @@ class MainWindow(Gtk.Window):
             buttons_and_labels(n+1)
 
         buttons_and_labels(1)
-        
+
         grid.set_row_spacing(row_spacing)
         grid.set_row_homogeneous(False)
         grid.set_column_homogeneous(True)
@@ -321,7 +326,7 @@ class MainWindow(Gtk.Window):
             dialog.hide()
         elif confirmation == "False":
             run_command(button_four_command)
-    
+
     def on_button5_clicked(self, widget):
         switch_to_watch_cursor()
         if confirmation == "True":
@@ -335,7 +340,6 @@ class MainWindow(Gtk.Window):
             dialog.hide()
         elif confirmation == "False":
             run_command(button_five_command)
-
 
     # Key press function.
     def on_key_pressed(self, widget, event):
@@ -351,7 +355,6 @@ if __name__ == "__main__":
     win.set_visual(visual)
     win.connect("destroy", Gtk.main_quit)
     win.show_all()
-
     if fullscreen_mode == "True":
         win.fullscreen()
     Gtk.main()
