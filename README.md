@@ -21,6 +21,7 @@ The program has a configuration file to change it to your liking.
 - Specify the border width of the window.
 - Change the size of the main window. <b>BUT, after the latest update it is always fullscreen, no matter what values for the resolution you set in the config, unless you also change the values of `border_width` and `fullscreen_mode`.</b>
 - Disable confirmation dialog.
+- Change size of the dialog window.
 - Specify how much space between buttons and text you would like to have.
 - And also specify the spacing between the buttons.
 - Disable fullscreen mode.
@@ -30,7 +31,7 @@ The program has a configuration file to change it to your liking.
 ****
 
 ## Additional Info
-* The shutdown, reboot, suspend and log-out commands are standart Systemd commands, but the command to lock screen you'll need to check what is used in your desktop environment or window manager (sometimes there is none and you will have to manually install something like `light-locker`, `slock` or stuff like that).
+* The shutdown, reboot, suspend, hibernate and log-out commands are standart Systemd commands, but the command to lock screen you'll need to check what is used in your desktop environment or window manager (sometimes there is none and you will have to manually install something like `light-locker`, `slock` or stuff like that).The hibernate thingy may not work out of the box on some distros. You can search for how to enable hibernation in your distro, if you need it, and also the command to hibernate.
 * The icons are <b>theme-dependent</b>. In order to change the default ones, you need to specify the exact name (without the file extention) of the icon of the currently installed GTK3 theme. The maximum size of default icons is 6. After changing the icons and their size, that is larger than 6, run the script in the command line to see if there are any errors related to the icons.
 * The transparency effect is achieved through the use of a compositor. I use the `picom` compositor. Install `picom` and then make this command `picom --experimental-backends &` (with or without `--experimental-backends`) to run after logging in.
 * If the dialog window appears under the main one for some reason, set the option `Fullscreen` inside the config to `False` and try again.
