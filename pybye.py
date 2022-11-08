@@ -7,9 +7,7 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
-
-HOME = path.expanduser("~")
-PATH_TO_CONFIG = HOME + "/.config/PyBye/pybye.conf"
+PATH_TO_CONFIG = path.expanduser("~") + "/.config/PyBye/"
 PATH_TO_CSS = path.dirname(path.abspath(__file__)) + "/gtk_style.css"
 config = ConfigParser()
 
@@ -17,15 +15,10 @@ config = ConfigParser()
 config.add_section("Commands")
 config.set("Commands", "button_one_command", "shutdown now")
 config.set("Commands", "button_two_command", "reboot")
-config.set("Commands",
-           "button_three_command",
-           "systemctl suspend")
-config.set("Commands",
-           "button_four_command",
-           "dm-tool lock")
-config.set("Commands",
-           "button_five_command",
-           "gnome-session-quit --force")
+config.set("Commands", "button_three_command", "systemctl suspend")
+config.set("Commands", "button_four_command", "dm-tool lock")
+config.set("Commands", "button_five_command", "gnome-session-quit --force")
+config.set("Commands", "button_six_command", "systemctl hibernate")
 
 config.add_section("Icons")
 config.set("Icons", "button_one_icon", "system-shutdown-symbolic")
@@ -33,17 +26,20 @@ config.set("Icons", "button_two_icon", "system-reboot-symbolic")
 config.set("Icons", "button_three_icon", "system-suspend-symbolic")
 config.set("Icons", "button_four_icon", "system-lock-screen-symbolic")
 config.set("Icons", "button_five_icon", "system-log-out-symbolic")
+config.set("Icons", "button_six_icon", "system-hibernate-symbolic")
 
 config.add_section("Size")
 config.set("Size", "Width", "1920")
 config.set("Size", "Height", "1080")
-config.set("Size", "border_width", "500")
+config.set("Size", "border_width", "480")
 config.set("Size", "icon_size", "6")
+config.set("Size", "dialog_height", "120")
+config.set("Size", "dialog_width", "150")
 
 config.add_section("Options")
 config.set("Options", "ask_for_confirmation", "True")
-config.set("Options", "space_between_buttons_and_text", "15")
-config.set("Options", "space_between_buttons", "80")
+config.set("Options", "space_between_buttons_and_text", "20")
+config.set("Options", "space_between_buttons", "20")
 config.set("Options", "fullscreen_mode", "True")
 
 config.add_section("Text")
@@ -52,6 +48,7 @@ config.set("Text", "button_two", "Reboot")
 config.set("Text", "button_three", "Suspend")
 config.set("Text", "button_four", "Lock screen")
 config.set("Text", "button_five", "Log-Out")
+config.set("Text", "button_six", "Hibernate")
 
 config.add_section("Colors")
 config.set("Colors", "background_color", "rgba(40,40,40, 0.6)")
@@ -62,16 +59,15 @@ config.set("Colors", "button_activate", "antiquewhite")
 config.set("Colors", "text_color", "#ebdbb2")
 config.set("Colors", "text_shadow", "#3c3836")
 
-# Create folder for config file if it does not exist yet.
-if not path.exists(HOME + "/.config/PyBye/"):
-    mkdir(HOME + "/.config/PyBye/")
-
-# Write configuration to the file if the file does not exist yet.
-if not path.exists(PATH_TO_CONFIG):
-    with open(PATH_TO_CONFIG, "w") as conf:
+# Writes configuration to the file if the file does not exist yet.
+# Also creates a folder if it doesn't exist yet.
+if not path.exists(PATH_TO_CONFIG + "pybye.conf"):
+    if not path.exists(PATH_TO_CONFIG):
+        mkdir(PATH_TO_CONFIG)
+    with open(PATH_TO_CONFIG + "pybye.conf", "w") as conf:
         config.write(conf)
 
-config.read(PATH_TO_CONFIG)
+config.read(PATH_TO_CONFIG + "pybye.conf")
 
 # Variables for icons.
 button_one_icon = config["Icons"]["button_one_icon"]
@@ -79,6 +75,7 @@ button_two_icon = config["Icons"]["button_two_icon"]
 button_three_icon = config["Icons"]["button_three_icon"]
 button_four_icon = config["Icons"]["button_four_icon"]
 button_five_icon = config["Icons"]["button_five_icon"]
+button_six_icon = config["Icons"]["button_six_icon"]
 
 # Variables for commands.
 button_one_command = config["Commands"]["button_one_command"]
@@ -86,12 +83,15 @@ button_two_command = config["Commands"]["button_two_command"]
 button_three_command = config["Commands"]["button_three_command"]
 button_four_command = config["Commands"]["button_four_command"]
 button_five_command = config["Commands"]["button_five_command"]
+button_six_command = config["Commands"]["button_six_command"]
 
 # Variables for size.
 width = int(config["Size"]["Width"])
 height = int(config["Size"]["Height"])
 border_width = int(config["Size"]["Border_width"])
 icon_size = int(config["Size"]["icon_size"])
+dialog_width = int(config["Size"]["dialog_width"])
+dialog_height = int(config["Size"]["dialog_height"])
 
 # Variables for options.
 confirmation = config["Options"]["ask_for_confirmation"].capitalize()
@@ -105,6 +105,7 @@ button_two = config["Text"]["button_two"]
 button_three = config["Text"]["button_three"]
 button_four = config["Text"]["button_four"]
 button_five = config["Text"]["button_five"]
+button_six = config["Text"]["button_six"]
 
 # Variables for colors.
 background_color = config["Colors"]["background_color"]
@@ -157,13 +158,13 @@ save_colors(0)
 
 
 def switch_to_watch_cursor():
-    """Changes cursor to 'watch' or 'loading'."""
+    """Changes cursor to 'loading' state."""
     watch_cursor = Gdk.Cursor(Gdk.CursorType.WATCH)
     win.get_window().set_cursor(watch_cursor)
 
 
 def switch_to_arrow_cursor():
-    """Changes cursor back to arrow."""
+    """Changes cursor back to normal."""
     arrow_cursor = Gdk.Cursor(Gdk.CursorType.ARROW)
     win.get_window().set_cursor(arrow_cursor)
 
@@ -192,6 +193,19 @@ def run_command(shell_command):
         Gtk.main_quit()
 
 
+def run_dialog(button_name, button_command):
+    """Shows the dialog window for the clicked button.
+    Takes two args: button_name and button command."""
+    global status
+    status = button_name
+    dialog = ConfirmAction(MainWindow())
+    response = dialog.run()
+    if response == Gtk.ResponseType.YES:
+        run_command(button_command)
+        switch_to_arrow_cursor()
+        dialog.hide()
+
+
 class ConfirmAction(Gtk.Dialog):
     def __init__(self, parent):
         super().__init__(title=status,
@@ -199,7 +213,7 @@ class ConfirmAction(Gtk.Dialog):
                          modal=True,
                          name="dialog"
                          )
-        self.set_default_size(150, 120)
+        self.set_default_size(dialog_width, dialog_height)
         self.set_resizable(False)
         self.connect("key-press-event", self.on_escape_pressed)
         self.add_button(Gtk.STOCK_NO, Gtk.ResponseType.CANCEL)
@@ -241,6 +255,7 @@ class MainWindow(Gtk.Window):
             3: [button_three, button_three_icon, self.on_button3_clicked],
             4: [button_four, button_four_icon, self.on_button4_clicked],
             5: [button_five, button_five_icon, self.on_button5_clicked],
+            6: [button_six, button_six_icon, self.on_button6_clicked],
         }
         grid = Gtk.Grid()
 
@@ -258,7 +273,7 @@ class MainWindow(Gtk.Window):
             grid.attach_next_to(label, button,
                                 Gtk.PositionType.BOTTOM,
                                 1, 1)
-            if n == 5:
+            if n == 6:
                 return
             buttons_and_labels(n+1)
 
@@ -274,72 +289,44 @@ class MainWindow(Gtk.Window):
     def on_button1_clicked(self, widget):
         switch_to_watch_cursor()
         if confirmation == "True":
-            global status
-            status = button_one
-            dialog = ConfirmAction(self)
-            response = dialog.run()
-            if response == Gtk.ResponseType.YES:
-                run_command(button_one_command)
-            switch_to_arrow_cursor()
-            dialog.hide()
+            run_dialog(button_one, button_one_command)
         elif confirmation == "False":
             run_command(button_one_command)
 
     def on_button2_clicked(self, widget):
         switch_to_watch_cursor()
         if confirmation == "True":
-            global status
-            status = button_two
-            dialog = ConfirmAction(self)
-            response = dialog.run()
-            if response == Gtk.ResponseType.YES:
-                run_command(button_two_command)
-            switch_to_arrow_cursor()
-            dialog.hide()
+            run_dialog(button_two, button_two_command)
         elif confirmation == "False":
             run_command(button_two_command)
 
     def on_button3_clicked(self, widget):
         switch_to_watch_cursor()
         if confirmation == "True":
-            global status
-            status = button_three
-            dialog = ConfirmAction(self)
-            response = dialog.run()
-            if response == Gtk.ResponseType.YES:
-                run_command(button_three_command)
-            switch_to_arrow_cursor()
-            dialog.hide()
+            run_dialog(button_three, button_three_command)
         elif confirmation == "False":
             run_command(button_three_command)
 
     def on_button4_clicked(self, widget):
         switch_to_watch_cursor()
         if confirmation == "True":
-            global status
-            status = button_four
-            dialog = ConfirmAction(self)
-            response = dialog.run()
-            if response == Gtk.ResponseType.YES:
-                run_command(button_four_command)
-            switch_to_arrow_cursor()
-            dialog.hide()
+            run_dialog(button_four, button_four_command)
         elif confirmation == "False":
             run_command(button_four_command)
 
     def on_button5_clicked(self, widget):
         switch_to_watch_cursor()
         if confirmation == "True":
-            global status
-            status = button_five
-            dialog = ConfirmAction(self)
-            response = dialog.run()
-            if response == Gtk.ResponseType.YES:
-                run_command(button_five_command)
-            switch_to_arrow_cursor()
-            dialog.hide()
+            run_dialog(button_five, button_five_command)
         elif confirmation == "False":
             run_command(button_five_command)
+
+    def on_button6_clicked(self, widget):
+        switch_to_watch_cursor()
+        if confirmation == "True":
+            run_dialog(button_six, button_six_command)
+        elif confirmation == "False":
+            run_command(button_six_command)
 
     # Key press function.
     def on_key_pressed(self, widget, event):
