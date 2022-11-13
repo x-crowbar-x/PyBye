@@ -202,8 +202,8 @@ def run_dialog(button_name, button_command):
     response = dialog.run()
     if response == Gtk.ResponseType.YES:
         run_command(button_command)
-        switch_to_arrow_cursor()
-        dialog.hide()
+    switch_to_arrow_cursor()
+    dialog.hide()
 
 
 class ConfirmAction(Gtk.Dialog):
